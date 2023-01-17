@@ -17,7 +17,7 @@ public class Advertisement implements Serializable {
     public Integer id;
     @SerializedName("image_url")
     @Expose
-    public Object imageUrl;
+    public String  imageUrl;
     @SerializedName("tower_name")
     @Expose
     public String towerName;

@@ -3,6 +3,7 @@ package org.school.housing.views;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-//    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
     private Button btn_newUser, btn_newEmp, btn_newAdv;
     private RecyclerView recyclerView_user,recyclerView_emp,recyclerView_adv;
 
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String message) {
+                Log.d(TAG, "onFailure() returned: " + message);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });

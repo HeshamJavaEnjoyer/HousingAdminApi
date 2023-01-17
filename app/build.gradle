@@ -29,6 +29,9 @@ android {
 }
 
 dependencies {
+    //ForImageUri
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
     //GSON retrofit implementation
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
