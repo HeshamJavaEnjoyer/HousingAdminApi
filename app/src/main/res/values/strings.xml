@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Housing</string>
+    <string name="welcome_sir">Welcome Sir</string>
+    <string name="welcome_back">Welcome Back…</string>
+    <string name="enter_email_amp_password"><![CDATA[Enter email & password]]></string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="new_user">New User</string>
+    <string name="user_info">User Info</string>
+    <string name="user_name">User Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="national_number">National Number</string>
+    <string name="family_members">Family Members</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="pick_an_image">Pick an Image</string>
+    <string name="submit">Submit</string>
+    <string name="employee_info">Employee Info</string>
+    <string name="advertisement_info">Advertisement Info</string>
+    <string name="new_employee">New Employee</string>
+    <string name="new_advertisement">New Advertisement</string>
+    <string name="info">Info</string>
+    <string name="title">Title</string>
+    <string name="delete">Delete</string>
+    <string name="edit_users">Edit Users</string>
+    <string name="edit_employee">Edit Employee</string>
+    <string name="edit_ads">Edit Ads</string>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Housing" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/h_lessBlue</item>
+        <item name="colorPrimaryVariant">@color/h_darkBlue</item>
+        <item name="colorOnPrimary">@color/h_clearWhite</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/s_oldIce</item>
+        <item name="colorSecondaryVariant">@color/s_fazeSea</item>
+        <item name="colorOnSecondary">@color/fade_black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/special_gray</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

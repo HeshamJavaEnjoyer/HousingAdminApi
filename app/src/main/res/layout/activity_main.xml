@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/special_gray"
+    tools:context=".views.MainActivity">
+
+    <!--GuideLines-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_top_start_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+    <!--GuideLines-->
+
+    <Button
+        android:id="@+id/btn_newUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_user"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
+        app:layout_constraintTop_toTopOf="@id/horizontal_top_start_guide"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btn_newEmp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_employee"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/btn_newUser"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btn_newAdv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_advertisement"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/btn_newEmp"
+        tools:ignore="TextContrastCheck" />
+
+    <!--USER RecyclerView    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_user"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_user_form"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/btn_newAdv"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_user" />
+    <!--Emp RecyclerView    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_emp"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_emp_form"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/recycler_user"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_employee" />
+    <!--Adv RecyclerView    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_adv"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_adv_form"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/recycler_emp"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_advertisement" />
+
+    <!--FOR THE SNACK_BAR-->
+    <View
+        android:id="@+id/snackBar_action"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
