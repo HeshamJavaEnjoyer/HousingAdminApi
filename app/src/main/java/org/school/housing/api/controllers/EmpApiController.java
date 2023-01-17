@@ -1,6 +1,8 @@
 package org.school.housing.api.controllers;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import org.school.housing.api.controllers.manger.ApiBaseController;
 import org.school.housing.api.controllers.manger.ApiController;
@@ -16,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EmpApiController extends ApiBaseController {
-//    private static final String TAG = "EmpApiController";
+    private static final String TAG = "EmpApiController";
     private final ApiController apiController;
 
     //Singleton
@@ -67,6 +69,7 @@ public class EmpApiController extends ApiBaseController {
     }
 
     public void  updateEmployeeMap(int id , String name,String mobile,String national_number ,byte[] imagePart ,ProcessCallback processCallback){
+        Log.d(TAG, "updateEmployeeMap() returned: Id =" + id +" name = " + name);
         /*-
         RequestBody r_name = RequestBody.create(MediaType.parse("multipart/form-data"),name);
         RequestBody r_mobile = RequestBody.create(MediaType.parse("multipart/form-data"),mobile);
@@ -82,6 +85,8 @@ public class EmpApiController extends ApiBaseController {
         for (int i = 0; i <= values.length - 1; i++) {
             map.put(keys[i], RequestBody.create(MediaType.parse("text/plain"), values[i]));
         }
+        //For update purpose TODO
+        map.put("_method",RequestBody.create(MediaType.parse("text/plain"),"PUT"));
 
         Call<BaseResponse<Employee>> call = apiController.getRetrofitRequests().update_emp_map(id,map,file);
         call.enqueue(new Callback<BaseResponse<Employee>>() {

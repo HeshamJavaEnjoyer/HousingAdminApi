@@ -77,6 +77,9 @@ public class UserApiController extends ApiBaseController {
         for (int i = 0; i <= values.length - 1; i++) {
             map.put(keys[i], RequestBody.create(MediaType.parse("text/plain"), values[i]));
         }
+        //For update purpose TODO
+        map.put("_method",RequestBody.create(MediaType.parse("text/plain"),"PUT"));
+
 
         Call<BaseResponse<User>> call = ApiController.getInstance().getRetrofitRequests().update_user_Map(id, map, file);
         call.enqueue(new Callback<BaseResponse<User>>() {
@@ -103,6 +106,8 @@ public class UserApiController extends ApiBaseController {
         for (int i = 0; i <= values.length - 1; i++) {
             map.put(keys[i], RequestBody.create(MediaType.parse("text/plain"), values[i]));
         }
+        //For update purpose TODO
+        map.put("_method",RequestBody.create(MediaType.parse("text/plain"),"PUT"));
 
         Call<BaseResponse<User>> call = ApiController.getInstance().getRetrofitRequests().update_user_no_pic_Map(id,map);
         call.enqueue(new Callback<BaseResponse<User>>() {

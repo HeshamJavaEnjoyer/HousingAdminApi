@@ -3,7 +3,9 @@ package org.school.housing.models.admin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Advertisement {
+import java.io.Serializable;
+
+public class Advertisement implements Serializable {
     @SerializedName("title")
     @Expose
     public String title;

@@ -10,7 +10,6 @@ import org.school.housing.models.admin.User;
 import org.school.housing.models.special_respond.AuthResponse;
 import org.school.housing.models.special_respond.PasswordChangeResponse;
 
-
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -22,7 +21,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -57,7 +55,7 @@ public interface RetrofitRequests {
 
     @Multipart
     @POST("users")
-    Call<BaseResponse<User>> create_user_map(@PartMap Map<String ,RequestBody> parameters, @Part MultipartBody.Part image);
+    Call<BaseResponse<User>> create_user_map(@PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part image);
 
 
     //UPDATE REQUEST -- !Path('id')! as parameter
@@ -70,7 +68,7 @@ public interface RetrofitRequests {
 
     @Multipart
     @POST("users/{id}")
-    Call<BaseResponse<User>> update_user_Map(@Path("id") int id, @PartMap Map<String ,RequestBody> parameters , @Part("image") MultipartBody.Part imagePart);
+    Call<BaseResponse<User>> update_user_Map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part imagePart);
 
     //here without editing the pic
     /*-
@@ -81,15 +79,13 @@ public interface RetrofitRequests {
 
     @FormUrlEncoded
     @POST("users/{id}")
-    Call<BaseResponse<User>> update_user_no_pic_Map(@Path("id") int id, @PartMap Map<String ,RequestBody> parameters);
+    Call<BaseResponse<User>> update_user_no_pic_Map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters);
 
     //DELETE REQUEST this is to delete a user by it id
     @DELETE("users/{id}")
     Call<BaseResponse<User>> DELETE_USER_CALL(@Path("id") int id);
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
 
 
     //LOGIN REQUEST FOR ADMIN========================
@@ -126,15 +122,16 @@ public interface RetrofitRequests {
     //Employee-------------
     @POST("employees")
     @Multipart
-    Call<BaseResponse<Employee>> store_emp_map(@PartMap Map<String, RequestBody> parameters , @Part MultipartBody.Part imagePart);
+    Call<BaseResponse<Employee>> store_emp_map(@PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part imagePart);
+
     /*-
     @PUT("employees")//i changed post to put
     @Multipart
     Call<BaseResponse<Employee>> update_emp(@Part("name") RequestBody name, @Part("mobile") RequestBody mobile, @Part("national_number") RequestBody national_number, @Part MultipartBody.Part imagePart);
-*/
-    @PUT("employees")//i changed post to put
+*///i changed post to put XXXIX
+    @POST("employees/{id}")
     @Multipart
-    Call<BaseResponse<Employee>> update_emp_map(@Path("id") int id, @PartMap Map<String ,RequestBody> parameters, @Part MultipartBody.Part imagePart);
+    Call<BaseResponse<Employee>> update_emp_map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part imagePart);
 
     @DELETE("employees/{id}")
     Call<BaseResponse<Employee>> delete_emp(@Path("id") int id);
@@ -142,19 +139,27 @@ public interface RetrofitRequests {
 
     @POST("advertisements")
     @Multipart
-    Call<BaseResponse<Advertisement>> store_advertisements(@Part("title") String  title ,@Part("info") String info,@Part MultipartBody.Part image );
+    Call<BaseResponse<Advertisement>> store_advertisements(@Part("title") String title, @Part("info") String info, @Part MultipartBody.Part image);
 
     @POST("advertisements")
     @Multipart
     Call<BaseResponse<Advertisement>> store_advertisements_noImage(@Part("title") String title, @Part("info") String info);
-
-    @POST("advertisements")
+    /*-1
+    @POST("advertisements/{id}")
     @Multipart
-    Call<BaseResponse<Advertisement>> update_advertisements(@Path("id") int id,@Part("title") String  title ,@Part("info") String info,@Part MultipartBody.Part image );
-
-    @POST("advertisements")
+    Call<BaseResponse<Advertisement>> update_advertisements(@Path("id") int id, @Part("_method") String _method, @Part("title") String title, @Part("info") String info, @Part MultipartBody.Part image);
+*/
+    @POST("advertisements/{id}")
     @Multipart
-    Call<BaseResponse<Advertisement>> update_advertisements_noImage(@Path("id") int id,@Part("title") String title, @Part("info") String info);
+    Call<BaseResponse<Advertisement>> update_advertisements_map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part image);
+    /*-1
+    @POST("advertisements/{id}")
+    @Multipart
+    Call<BaseResponse<Advertisement>> update_advertisements_noImage(@Path("id") int id, @Part("title") String title, @Part("info") String info);
+*/
+    @POST("advertisements/{id}")
+    @Multipart
+    Call<BaseResponse<Advertisement>> update_advertisements_noImage_map(@Path("id") int id,@PartMap Map<String , RequestBody> parameters);
 
     @DELETE("advertisements/{id}")
     Call<BaseResponse<Advertisement>> delete_advertisements(@Path("id") int id);

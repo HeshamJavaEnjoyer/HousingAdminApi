@@ -41,7 +41,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
 
     private Spinner dropdown;
     private int id;
-    private List<Advertisement> items = new ArrayList<>();
+    private final List<String > items = new ArrayList<>();
 
     //-Image
     private ActivityResultLauncher<String> permissionResultLauncher;
@@ -59,7 +59,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setIntentAdv() {
-        mIntentAdv = (Advertisement) getIntent().getSerializableExtra(Keys.EmpKey.name());
+        mIntentAdv = (Advertisement) getIntent().getSerializableExtra(Keys.AdvKey.name());
         if (mIntentAdv != null) {
             Log.d(TAG, "setIntentEmp() Objects " + mIntentAdv);
             Log.d(TAG, "setIntentEmp() Objects Id: " + mIntentAdv.id);
@@ -97,8 +97,10 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
         ContentApiController.getInstance().getAdvertisements(new ListCallback<Advertisement>() {
             @Override
             public void onSuccess(List<Advertisement> list) {
-                items = list;
-                ArrayAdapter<Advertisement> adapter = new ArrayAdapter<>(EditAdvActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
+                for (int i = 0; i < list.size(); i++) {
+                    items.add(String.valueOf(list.get(i).id));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditAdvActivity.this, android.R.layout.simple_list_item_1, items);
                 dropdown.setAdapter(adapter);
             }
 
@@ -155,12 +157,13 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean checkData() {
         return !Objects.requireNonNull(title_edt.getText()).toString().isEmpty() &&
-                !Objects.requireNonNull(info_edt.getText()).toString().isEmpty();
+                !Objects.requireNonNull(info_edt.getText()).toString().isEmpty()
+                && id != -1;
     }
 
     private void updateAdv() {
         if (saveEntryData()) {
-            AdvApiController.getInstance().updateAdv(id, title, info, imagePart, new ProcessCallback() {
+            AdvApiController.getInstance().updateAdv_map(id, title, info, imagePart, new ProcessCallback() {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(EditAdvActivity.this, "DoneSuccessfully =>" + message, Toast.LENGTH_SHORT).show();
@@ -175,7 +178,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
         } else {
-            AdvApiController.getInstance().updateAdv_noImage(id, title, info, new ProcessCallback() {
+            AdvApiController.getInstance().updateAdv_noImage_map(id, title, info, new ProcessCallback() {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(EditAdvActivity.this, "DoneSuccessfully =>" + message, Toast.LENGTH_SHORT).show();
