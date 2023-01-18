@@ -4,24 +4,20 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.school.housing.Prefs.AppSharedPreferences;
+import org.school.housing.api.controllers.manger.ApiBaseController;
 import org.school.housing.api.controllers.manger.ApiController;
 import org.school.housing.interfaces.ProcessCallback;
 import org.school.housing.models.admin.Admin;
 import org.school.housing.models.special_respond.AuthResponse;
 import org.school.housing.models.special_respond.PasswordChangeResponse;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 // STOPSHIP: 1/8/2023 => ✔✔✔
-public class AuthApiController {
+public class AuthApiController extends ApiBaseController {
     //lets make a singleton
     public AuthApiController() {
     }
@@ -45,15 +41,7 @@ public class AuthApiController {
                     Log.d("TAG", "onResponse() returned: " + response.body().object.name + " " + response.body().object.towerName);
                     callback.onSuccess(response.body().message);
                 } else {
-                    try {
-                        assert response.errorBody() != null;
-                        String error_string = new String(response.errorBody().bytes(), StandardCharsets.UTF_8);
-                        JSONObject jsonObject = new JSONObject(error_string);
-                        callback.onFailure(jsonObject.getString("message"));
-                    } catch (IOException | JSONException ioException) {
-                        ioException.printStackTrace();
-                    }
-                    callback.onFailure(response.message());
+                    generalErrorMessage(response,callback);
                 }
             }
 
@@ -73,9 +61,7 @@ public class AuthApiController {
                     AppSharedPreferences.getInstance().clear();
                     processCallback.onSuccess("Logged Out Successfully");
                 } else {
-                    //temp!!!! ill pass
-
-                    processCallback.onFailure("SorryAlmostDoneRight");
+                    generalErrorMessage(response,processCallback);
                 }
             }
 
@@ -96,7 +82,7 @@ public class AuthApiController {
                 if (response.isSuccessful() && response.body() != null) {
                     processCallback.onSuccess("forget_password done successfully =>" + response.body().message);
                 } else {
-                    processCallback.onFailure("failed to change password!");
+                    generalErrorMessage(response,processCallback);
                 }
             }
 
@@ -115,7 +101,7 @@ public class AuthApiController {
                 if (response.isSuccessful() && response.body() != null) {
                     processCallback.onSuccess("reset successfully =>" + response.body().message);
                 } else {
-                    processCallback.onFailure("failed to change password!");
+                    generalErrorMessage(response,processCallback);
                 }
             }
 
@@ -134,7 +120,7 @@ public class AuthApiController {
                 if (response.isSuccessful() && response.body() != null) {
                     processCallback.onSuccess("changed successfully =>" + response.body().message);
                 } else {
-                    processCallback.onFailure("failed to change password!");
+                    generalErrorMessage(response,processCallback);
                 }
             }
 

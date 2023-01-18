@@ -1,8 +1,12 @@
 package org.school.housing.views.forms;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,12 +22,14 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.school.housing.R;
 import org.school.housing.api.controllers.UserApiController;
+import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ProcessCallback;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
-public class NewUserActivity extends AppCompatActivity implements View.OnClickListener {
+public class NewUserActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener {
     private static final String TAG = "NewUserActivity";
     private TextInputEditText username_edt, email_edt, mobile_edt, national_number_edt, family_members_edt;
     private Button submit_button, btn_pick_image;
@@ -83,7 +89,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         if (view.getId() == submit_button.getId()) {
             performCreation();
         } else if (view.getId() == btn_pick_image.getId()) {
-            pickImage();
+            new ImagePickerDialog().show(getSupportFragmentManager(), "PickingImage");
         }
     }
 
@@ -139,7 +145,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void pickImage() {
+    private void pickCameraImage() {
         permissionResultLauncher.launch(Manifest.permission.CAMERA);
     }
 
@@ -171,6 +177,63 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         return stream.toByteArray();
     }
 
+    @Override
+    public void onCameraClicked() {
+        pickCameraImage();
+    }
+
+    @Override
+    public void onGalleryClicked() {pickImageFromGallery();}
+    // ---Gallery Image Code
+    private void pickImageFromGallery() {
+        Intent intentPickImageFromGallery = new Intent();
+        intentPickImageFromGallery.setType("image/*");
+        intentPickImageFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        launchSomeActivity.launch(intentPickImageFromGallery);
+    }
+    private final ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    // do your operation from here....
+                    if (data != null && data.getData() != null) {
+                        Uri selectedImageUri = data.getData();
+                        Bitmap selectedImageBitmap = null;
+                        try {
+                            selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                       //here use the bitmap object as you wish
+                        if (selectedImageBitmap!= null){
+                            imageBitmap = selectedImageBitmap;
+                            Log.i(TAG, "setupResultsLauncher: image =>" + imageBitmap);
+                            Toast.makeText(this, "Image Picked Successfully", Toast.LENGTH_SHORT).show();
+                            btn_pick_image.setBackgroundColor(getResources().getColor(R.color.special_green));
+                        }else{
+                            Toast.makeText(NewUserActivity.this, "What! No Image!", Toast.LENGTH_SHORT).show();
+                            btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+                        }
+                    }else{
+                        Toast.makeText(NewUserActivity.this, "No Image Got Picked", Toast.LENGTH_SHORT).show();
+                        btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+                    }
+                }
+            });
+
+
+    //    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PICK_IMAGE) {
+//            //TODO: action
+//            final Bundle extras = data.getExtras();
+//            if (extras != null) {
+//                //Get image
+//                Bitmap newProfilePic = extras.getParcelable("data");
+//            }
+//        }
+//    }
     /*
         private void createUserByObject() {
             if (saveUserData()) {

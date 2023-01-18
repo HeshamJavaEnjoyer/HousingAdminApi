@@ -30,7 +30,12 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     }
     @SuppressLint("SetTextI18n")
     protected void setData(User data){
-        Picasso.get().load(data.imageUrl).into(user_imageView);
+
+        if (data.imageUrl!= null){
+            Picasso.get().load(data.imageUrl).into(user_imageView);
+        }else {
+            user_imageView.setImageResource(R.drawable.image_no_image);
+        }
 
         tv_name.setText(data.name);
         tv_email.setText(data.email);

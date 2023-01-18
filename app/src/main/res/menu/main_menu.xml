@@ -2,27 +2,40 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menu_editUser"
-        android:icon="@drawable/ic_users"
-        android:title="@string/edit_users"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_editEmp"
-        android:icon="@drawable/ic_edit_emp"
-        android:title="@string/edit_employee"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_editAdv"
-        android:icon="@drawable/ic_edit_ad"
-        android:title="@string/edit_ads"
-        app:showAsAction="ifRoom" />
+    <group
+        android:id="@+id/menu_EditsData"
+        android:checkableBehavior="single"
+        android:menuCategory="alternative"
+        android:orderInCategory="@integer/material_motion_duration_long_1">
+        <item
+            android:id="@+id/menu_editUser"
+            android:icon="@drawable/ic_users"
+            android:title="@string/edit_users"
+            app:showAsAction="collapseActionView" />
+        <item
+            android:id="@+id/menu_editEmp"
+            android:icon="@drawable/ic_edit_emp"
+            android:title="@string/edit_employee"
+            app:showAsAction="collapseActionView" />
+        <item
+            android:id="@+id/menu_editAdv"
+            android:icon="@drawable/ic_edit_ad"
+            android:title="@string/edit_ads"
+            app:showAsAction="collapseActionView" />
+    </group>
+
 
     <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/ic_logout"
         android:title="@string/logout"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_changePassword"
+        android:icon="@drawable/ic_change_password"
+        android:title="@string/change_password"
+        app:showAsAction="ifRoom" />
 
 
 </menu>

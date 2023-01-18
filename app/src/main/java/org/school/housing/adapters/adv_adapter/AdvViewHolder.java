@@ -32,7 +32,11 @@ public class AdvViewHolder extends RecyclerView.ViewHolder {
     @SuppressLint("SetTextI18n")
     protected void setData(Advertisement data){
 //        adv_imageView.set(Uri.parse(data.imageUrl));
-        Picasso.get().load(data.imageUrl).into(adv_imageView);
+        if (data.imageUrl!= null){
+            Picasso.get().load(data.imageUrl).into(adv_imageView);
+        }else {
+            adv_imageView.setImageResource(R.drawable.image_no_image);
+        }
         tv_id.setText("Adv_ID :"+data.id);
         tv_title.setText(data.title);
         tv_info.setText(data.info);

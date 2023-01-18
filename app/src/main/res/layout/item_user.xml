@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bac_users"
+    android:layout_margin="5dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <View
@@ -16,13 +18,15 @@
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/test_hint"
         android:textAlignment="center"
         android:textColor="@color/h_clearWhite"
+        android:textColorHint="@color/h_clearWhite"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
@@ -30,39 +34,49 @@
         android:id="@+id/user_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="2dp"
+        android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/h_clearWhite"
+        android:textColor="@color/black"
+        android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_name" />
 
     <TextView
         android:id="@+id/user_mobile"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/test_hint"
         android:textAlignment="center"
         android:textColor="@color/h_clearWhite"
+        android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_email" />
 
     <TextView
         android:id="@+id/user_id"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/h_clearWhite"
+        android:textColor="@color/black"
+        android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_mobile" />
 
     <ImageView
         android:id="@+id/user_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="15dp"
         android:translationZ="5dp"
         app:layout_constraintBottom_toBottomOf="@id/user_id"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,8 +2,12 @@ package org.school.housing.views.edit_forms;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,16 +27,18 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.EmpApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
 import org.school.housing.models.admin.Employee;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditEmpActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditEmpActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener {
     private static final String TAG = "EditEmpActivity";
 
     private TextInputEditText username_edt, mobile_edt, national_number_edt;
@@ -133,7 +139,7 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btnPickImage:
                 Toast.makeText(this, "To The Image", Toast.LENGTH_SHORT).show();
-                pickImage();
+                new ImagePickerDialog().show(getSupportFragmentManager(), "PickingImage");
                 break;
             case R.id.btn_submit_newEmp:
                 performUpdate();
@@ -197,7 +203,7 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void performDeleteEmp() {
-        if (!String.valueOf(id).isEmpty()){
+        if (!String.valueOf(id).isEmpty()) {
             EmpApiController.getInstance().deleteEmployee(id, new ProcessCallback() {
                 @Override
                 public void onSuccess(String message) {
@@ -211,7 +217,7 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
                     Snackbar.make(findViewById(R.id.btn_submit_newEmp), "failed to => " + massage, Snackbar.LENGTH_LONG).show();
                 }
             });
-        }else {
+        } else {
             Snackbar.make(findViewById(R.id.btn_submit_newEmp), "Select a valid Id !", Snackbar.LENGTH_LONG).show();
         }
     }
@@ -235,9 +241,9 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private int controlIdSelection() {
-        if (mIntentEmployee != null){
+        if (mIntentEmployee != null) {
             id = mIntentEmployee.id;
-        }else {
+        } else {
             dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -257,7 +263,7 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
 
 
     //IMAGE
-    private void pickImage() {
+    private void pickCameraImage() {
         permissionResultLauncher.launch(Manifest.permission.CAMERA);
     }
 
@@ -289,4 +295,49 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
+
+    @Override
+    public void onCameraClicked() {
+        pickCameraImage();
+    }
+
+    @Override
+    public void onGalleryClicked() {
+        pickImageFromGallery();
+    }
+    private void pickImageFromGallery() {
+        Intent intentPickImageFromGallery = new Intent();
+        intentPickImageFromGallery.setType("image/*");
+        intentPickImageFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        launchSomeActivity.launch(intentPickImageFromGallery);
+    }
+    private final ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            // do your operation from here....
+            if (data != null && data.getData() != null) {
+                Uri selectedImageUri = data.getData();
+                Bitmap selectedImageBitmap = null;
+                try {
+                    selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //here use the bitmap object as you wish
+                if (selectedImageBitmap!= null){
+                    imageBitmap = selectedImageBitmap;
+                    Log.i(TAG, "setupResultsLauncher: image =>" + imageBitmap);
+                    Toast.makeText(this, "Image Picked Successfully", Toast.LENGTH_SHORT).show();
+                    btn_pick_image.setBackgroundColor(getResources().getColor(R.color.special_green));
+                }else{
+                    Toast.makeText(EditEmpActivity.this, "What! No Image!", Toast.LENGTH_SHORT).show();
+                    btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+                }
+            }else{
+                Toast.makeText(EditEmpActivity.this, "No Image Got Picked", Toast.LENGTH_SHORT).show();
+                btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+            }
+        }
+    });
+
 }

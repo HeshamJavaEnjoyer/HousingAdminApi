@@ -29,7 +29,11 @@ public class EmpViewHolder extends RecyclerView.ViewHolder {
     }
     @SuppressLint("SetTextI18n")
     protected void setData(Employee data){
-        Picasso.get().load(data.imageUrl).into(emp_imageView);
+        if (data.imageUrl!= null){
+            Picasso.get().load(data.imageUrl).into(emp_imageView);
+        }else {
+            emp_imageView.setImageResource(R.drawable.image_no_image);
+        }
 
         tv_name.setText(data.name);
         tv_mobile.setText(data.mobile);

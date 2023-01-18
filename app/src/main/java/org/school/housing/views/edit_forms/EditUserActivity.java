@@ -1,8 +1,12 @@
 package org.school.housing.views.edit_forms;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,16 +27,18 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.UserApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
 import org.school.housing.models.admin.User;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditUserActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditUserActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener {
     private static final String TAG = "EditUserActivity";
     private TextInputEditText username_edt, email_edt, mobile_edt, national_number_edt, family_members_edt;
     private Button submit_button, btn_pick_image, btn_deleteUser;
@@ -40,7 +46,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private Spinner dropdown;
     private RadioGroup gender_radioGroup;
     private String name, email, mobile, national_number, family_members;
-    private String gender;
+    private String gender = "M";
 
     //    private ActivityResultLauncher<Void> galleryResultLauncher;
     private ActivityResultLauncher<String> permissionResultLauncher;
@@ -51,6 +57,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private int id;
     private List<User> items = new ArrayList<>();
     private User mIntentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +67,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setIntentUser() {
-       mIntentUser = (User) getIntent().getSerializableExtra(Keys.UserKey.name());
+        mIntentUser = (User) getIntent().getSerializableExtra(Keys.UserKey.name());
         if (mIntentUser != null) {
             Log.d(TAG, "setIntentUser() returned: " + mIntentUser);
             Log.d(TAG, "setIntentUser() returned: " + mIntentUser.id);
@@ -70,7 +77,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             mobile_edt.setText(mIntentUser.mobile);
             national_number_edt.setText(mIntentUser.nationalNumber);
             family_members_edt.setText(mIntentUser.familyMembers);
-        }else {
+        } else {
             Log.d(TAG, "setIntentUser() returned: object is " + false);
         }
     }
@@ -86,9 +93,9 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         setEveryOnClick();
         setIntentUser();
 
-        if (mIntentUser == null){
+        if (mIntentUser == null) {
             setupSpinnerAdapter();
-        }else {
+        } else {
             dropdown.setEnabled(false);
         }
 
@@ -142,7 +149,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId() == submit_button.getId()) {
             performUpdate();
         } else if (view.getId() == btn_pick_image.getId()) {
-            pickImage();
+            new ImagePickerDialog().show(getSupportFragmentManager(), "PickingImage");
         } else if (view.getId() == btn_deleteUser.getId()) {
             performDeleteUser();
         }
@@ -166,8 +173,13 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean checkData() {
-        return !Objects.requireNonNull(username_edt.getText()).toString().isEmpty() && !Objects.requireNonNull(email_edt.getText()).toString().isEmpty() && !Objects.requireNonNull(mobile_edt.getText()).toString().isEmpty() && !Objects.requireNonNull(national_number_edt.getText()).toString().isEmpty() && !Objects.requireNonNull(family_members_edt.getText()).toString().isEmpty()
-                && id != -1;
+        return !Objects.requireNonNull(username_edt.getText()).toString().isEmpty()
+                && !Objects.requireNonNull(email_edt.getText()).toString().isEmpty()
+                && !Objects.requireNonNull(mobile_edt.getText()).toString().isEmpty()
+                && !Objects.requireNonNull(national_number_edt.getText()).toString().isEmpty()
+                && !Objects.requireNonNull(family_members_edt.getText()).toString().isEmpty()
+                && id != -1
+                && !gender.isEmpty();
     }
 
     private boolean saveUserData() {
@@ -185,6 +197,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             imagePart = bitmapToBytes();
             Log.i(TAG, "saveUserData: name :=> " + name + " email " + email + " mobile " + mobile + " national_number " + national_number + " gender " + gender + " imagePart " + imagePart.length);
         } else {
+            imagePart = null;
             Log.i(TAG, "saveUserData: name :=> " + name + " email " + email + " mobile " + mobile + " national_number " + national_number + " gender " + gender);
             return false;
         }
@@ -192,9 +205,9 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private int controlIdSelection() {
-        if (mIntentUser != null){
+        if (mIntentUser != null) {
             id = mIntentUser.id;
-        }else {
+        } else {
             dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -265,7 +278,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
 
 
     //**Image Thing
-    private void pickImage() {
+    private void pickCameraImage() {
         permissionResultLauncher.launch(Manifest.permission.CAMERA);
     }
 
@@ -296,4 +309,50 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
+
+    @Override
+    public void onCameraClicked() {
+        pickCameraImage();
+    }
+
+    @Override
+    public void onGalleryClicked() {
+        pickImageFromGallery();
+    }
+    private void pickImageFromGallery() {
+        Intent intentPickImageFromGallery = new Intent();
+        intentPickImageFromGallery.setType("image/*");
+        intentPickImageFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+        launchSomeActivity.launch(intentPickImageFromGallery);
+    }
+    private final ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            // do your operation from here....
+            if (data != null && data.getData() != null) {
+                Uri selectedImageUri = data.getData();
+                Bitmap selectedImageBitmap = null;
+                try {
+                    selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //here use the bitmap object as you wish
+                if (selectedImageBitmap!= null){
+                    imageBitmap = selectedImageBitmap;
+                    Log.i(TAG, "setupResultsLauncher: image =>" + imageBitmap);
+                    Toast.makeText(this, "Image Picked Successfully", Toast.LENGTH_SHORT).show();
+                    btn_pick_image.setBackgroundColor(getResources().getColor(R.color.special_green));
+                }else{
+                    Toast.makeText(EditUserActivity.this, "What! No Image!", Toast.LENGTH_SHORT).show();
+                    btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+                }
+            }else{
+                Toast.makeText(EditUserActivity.this, "No Image Got Picked", Toast.LENGTH_SHORT).show();
+                btn_pick_image.setBackgroundColor(getResources().getColor(R.color.shiny_red));
+            }
+        }
+    });
+
+
 }

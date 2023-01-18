@@ -27,4 +27,11 @@
     <string name="edit_users">Edit Users</string>
     <string name="edit_employee">Edit Employee</string>
     <string name="edit_ads">Edit Ads</string>
+    <string name="change_password">Change Password</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout</string>
+    <string name="okay">Okay</string>
+    <string name="choose_where_to_pick_the_image">Choose Where from to pick the image</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="test_hint">Test Text</string>
 </resources>

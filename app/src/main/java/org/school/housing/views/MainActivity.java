@@ -23,8 +23,10 @@ import org.school.housing.adapters.user_adapter.UserAdapter;
 import org.school.housing.api.controllers.AuthApiController;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.LogoutDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
+import org.school.housing.interfaces.dialog.DialogListener;
 import org.school.housing.models.admin.Advertisement;
 import org.school.housing.models.admin.Employee;
 import org.school.housing.models.admin.User;
@@ -38,7 +40,7 @@ import org.school.housing.views.forms.NewUserActivity;
 import java.io.Serializable;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, DialogListener {
     private static final String TAG = "MainActivity";
     private Button btn_newUser, btn_newEmp, btn_newAdv;
     private RecyclerView recyclerView_user,recyclerView_emp,recyclerView_adv;
@@ -157,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                logout();
+                new LogoutDialog().show(getSupportFragmentManager(),"LogOut");
                 break;
             case R.id.menu_editUser:
                 setIntent(EditUserActivity.class);
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSuccess(String message) {
                 //performLogout and move to login
+                Log.d(TAG, "onSuccess() returned: " + message);
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
 
@@ -205,5 +208,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setIntent(Class<?> cls) {
         startActivity(new Intent(this, cls));
+    }
+
+    //this for okay btn in dialog
+    @Override
+    public void onConfirmClicked() {
+        logout();
     }
 }

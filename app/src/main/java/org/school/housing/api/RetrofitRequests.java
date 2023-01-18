@@ -77,7 +77,7 @@ public interface RetrofitRequests {
     Call<BaseResponse<User>> UPDATE_USERS_NO_PIC_CALL(@Path("id") int id, @Field("name") String name, @Field("email") String email, @Field("mobile") String mobile, @Field("national_number") String national_number, @Field("family_members") int family_members, @Field("gender") char gender);
     */
 
-    @FormUrlEncoded
+    @Multipart
     @POST("users/{id}")
     Call<BaseResponse<User>> update_user_no_pic_Map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters);
 
