@@ -36,6 +36,7 @@ import org.school.housing.views.edit_forms.EditUserActivity;
 import org.school.housing.views.forms.NewAdvActivity;
 import org.school.housing.views.forms.NewEmpActivity;
 import org.school.housing.views.forms.NewUserActivity;
+import org.school.housing.views.password_form.PasswordActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -161,14 +162,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_logout:
                 new LogoutDialog().show(getSupportFragmentManager(),"LogOut");
                 break;
+            case R.id.menu_changePassword:
+                setIntent(PasswordActivity.class);
+                break;
             case R.id.menu_editUser:
                 setIntent(EditUserActivity.class);
                 break;
-            case R.id.menu_editEmp:
-                setIntent(EditEmpActivity.class);
-                break;
             case R.id.menu_editAdv:
                 setIntent(EditAdvActivity.class);
+                break;
+            case R.id.menu_editEmp:
+                setIntent(EditEmpActivity.class);
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fade_black"
+    android:background="@color/special_gray"
     tools:context=".views.LoginActivity">
 
     <!--GuideLines-->
@@ -14,12 +14,14 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_start_guide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_end_guide"
         android:layout_width="match_parent"
@@ -72,6 +74,7 @@
         android:layout_marginTop="15dp"
         android:hint="@string/email"
         android:textColorHint="@color/white"
+        app:helperTextTextColor="@color/h_clearWhite"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
         app:layout_constraintTop_toBottomOf="@id/divider">
@@ -81,9 +84,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="emailAddress"
-            android:hint="@string/email"
+            android:drawableEnd="@drawable/ic_email"
             android:inputType="textEmailAddress"
-            android:maxLength="45" />
+            android:maxLength="45"
+            android:textColor="@color/white"
+            android:textColorHint="@color/h_clearWhite" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,6 +101,7 @@
         android:layout_marginTop="15dp"
         android:hint="@string/password"
         android:textColorHint="@color/white"
+        app:helperTextTextColor="@color/h_clearWhite"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
         app:layout_constraintTop_toBottomOf="@id/con_email_edit_text">
@@ -105,21 +111,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="password"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:drawableEnd="@drawable/ic_remove_eye"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/h_clearWhite" />
     </com.google.android.material.textfield.TextInputLayout>
-
+    <!--Password eye changer-->
+    <View
+        android:id="@+id/view_ic_password_eye"
+        app:layout_constraintTop_toTopOf="@id/con_password_edit_text"
+        app:layout_constraintEnd_toEndOf="@id/con_password_edit_text"
+        app:layout_constraintBottom_toBottomOf="@id/con_password_edit_text"
+        android:layout_width="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="40dp"/>
     <!--BUTTON-->
     <Button
         android:id="@+id/login_button"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:text="@string/login"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
-        app:layout_constraintTop_toBottomOf="@id/con_password_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/con_password_edit_text"
+        tools:ignore="TextContrastCheck" />
 
+    <TextView
+        android:id="@+id/tv_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/forget_my_password"
+        android:textColor="@color/golden_yellow"
+        android:textDirection="firstStrongLtr"
+        app:layout_constraintStart_toStartOf="@id/login_button"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
+    <TextView
+        android:id="@+id/tv_create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:text="@string/create_account"
+        android:textColor="@color/white"
+        android:textDirection="firstStrongRtl"
+        app:layout_constraintEnd_toEndOf="@id/login_button"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
     <!--FOR THE SNACK_BAR-->
     <View
         android:id="@+id/snackBar_action"

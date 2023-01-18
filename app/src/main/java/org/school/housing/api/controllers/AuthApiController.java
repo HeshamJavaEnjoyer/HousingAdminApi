@@ -18,6 +18,7 @@ import retrofit2.Response;
 
 // STOPSHIP: 1/8/2023 => ✔✔✔
 public class AuthApiController extends ApiBaseController {
+    private static final String TAG = "AuthApiController";
     //lets make a singleton
     public AuthApiController() {
     }
@@ -38,7 +39,7 @@ public class AuthApiController extends ApiBaseController {
             public void onResponse(@NonNull Call<AuthResponse<Admin>> call, @NonNull Response<AuthResponse<Admin>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     AppSharedPreferences.getInstance().save(response.body().object);// here we save the admin and his token in our AppSharedPreferences ==>so we could use his token in the headers
-                    Log.d("TAG", "onResponse() returned: " + response.body().object.name + " " + response.body().object.towerName);
+                    Log.d(TAG, "onResponse() returned: " + response.body().object.name + " " + response.body().object.towerName);
                     callback.onSuccess(response.body().message);
                 } else {
                     generalErrorMessage(response,callback);
@@ -75,12 +76,13 @@ public class AuthApiController extends ApiBaseController {
 
     //Password Authorization
     public void forget_password(String mobilePhone, ProcessCallback processCallback) {
+        Log.d(TAG, "forget_password() mobilePhone returned: " + mobilePhone);
         Call<AuthResponse<Admin>> call = ApiController.getInstance().getRetrofitRequests().Post_Forget_password(mobilePhone);
         call.enqueue(new Callback<AuthResponse<Admin>>() {
             @Override
             public void onResponse(@NonNull Call<AuthResponse<Admin>> call, @NonNull Response<AuthResponse<Admin>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    processCallback.onSuccess("forget_password done successfully =>" + response.body().message);
+                    processCallback.onSuccess("Done Your Mobile is Received =>" + response.body().message);
                 } else {
                     generalErrorMessage(response,processCallback);
                 }
