@@ -31,22 +31,22 @@ public interface RetrofitRequests {
     @GET("users")
     Call<BaseResponse<User>> GET_USERS_CALL();
 
-    @GET("categories")
-    Call<BaseResponse<Category>> GET_CATEGORIES_CALL();
-
     @GET("employees")
     Call<BaseResponse<Employee>> GET_EMPLOYEES_CALL();
+
+    @GET("advertisements")
+    Call<BaseResponse<Advertisement>> GET_Advertisements_CALL();
+
+    //**################################NowToWork
+    @GET("categories")
+    Call<BaseResponse<Category>> GET_CATEGORIES_CALL();
 
     @GET("operations")
     Call<BaseResponse<Operation>> GET_OPERATION_CALL();
 
-    @GET("advertisements")
-    Call<BaseResponse<Advertisement>> GET_Advertisements_CALL();
     //--------------------------------------------------------------------------
 
-    //**################################THIS FOR USER
-    //CREATE REQUEST
-
+    //**#############THIS FOR USER
     /*-
     @Multipart
     @POST("users")
@@ -56,8 +56,6 @@ public interface RetrofitRequests {
     @Multipart
     @POST("users")
     Call<BaseResponse<User>> create_user_map(@PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part image);
-
-
     //UPDATE REQUEST -- !Path('id')! as parameter
     /*0
     @Multipart
@@ -98,7 +96,7 @@ public interface RetrofitRequests {
     Call<AuthResponse<Admin>> GET_Logout();
 
 
-    //***PASSWORD THINGS
+    //**################################***PASSWORD THINGS
     @FormUrlEncoded
     @POST("auth/forget-password")
     Call<AuthResponse<Admin>> Post_Forget_password(@Field("mobile") String mobile);
@@ -108,7 +106,7 @@ public interface RetrofitRequests {
     Call<AuthResponse<Admin>> Post_Reset_password(@Field("mobile") String mobile, @Field("code") String code, @Field("password") String password, @Field("password_confirmation") String password_confirmation);
 
 
-    //Now Change Password
+    //**##Now Change Password
     @FormUrlEncoded
     @POST("auth/change-password")
     Call<PasswordChangeResponse> POSTChangePassword(@Field("current_password") String current_password, @Field("new_password") String new_password, @Field("new_password_confirmation") String new_password_confirmation);
@@ -119,7 +117,7 @@ public interface RetrofitRequests {
     Call<BaseResponse<Employee>> store_emp(@Part("name") RequestBody name, @Part("mobile") RequestBody mobile, @Part("national_number") RequestBody national_number, @Part MultipartBody.Part imagePart);
   */
 
-    //Employee-------------
+    //**################################Employee
     @POST("employees")
     @Multipart
     Call<BaseResponse<Employee>> store_emp_map(@PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part imagePart);
@@ -128,7 +126,7 @@ public interface RetrofitRequests {
     @PUT("employees")//i changed post to put
     @Multipart
     Call<BaseResponse<Employee>> update_emp(@Part("name") RequestBody name, @Part("mobile") RequestBody mobile, @Part("national_number") RequestBody national_number, @Part MultipartBody.Part imagePart);
-*///i changed post to put XXXIX
+*///i changed post to put XXXIX MUST DO!!! send in the map _method
     @POST("employees/{id}")
     @Multipart
     Call<BaseResponse<Employee>> update_emp_map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part imagePart);
@@ -137,6 +135,7 @@ public interface RetrofitRequests {
     Call<BaseResponse<Employee>> delete_emp(@Path("id") int id);
     //**********************************************************************************************************************************
 
+    //**################################Advertisement
     @POST("advertisements")
     @Multipart
     Call<BaseResponse<Advertisement>> store_advertisements(@Part("title") String title, @Part("info") String info, @Part MultipartBody.Part image);
@@ -144,6 +143,7 @@ public interface RetrofitRequests {
     @POST("advertisements")
     @Multipart
     Call<BaseResponse<Advertisement>> store_advertisements_noImage(@Part("title") String title, @Part("info") String info);
+
     /*-1
     @POST("advertisements/{id}")
     @Multipart
@@ -152,6 +152,7 @@ public interface RetrofitRequests {
     @POST("advertisements/{id}")
     @Multipart
     Call<BaseResponse<Advertisement>> update_advertisements_map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters, @Part MultipartBody.Part image);
+
     /*-1
     @POST("advertisements/{id}")
     @Multipart
@@ -159,9 +160,14 @@ public interface RetrofitRequests {
 */
     @POST("advertisements/{id}")
     @Multipart
-    Call<BaseResponse<Advertisement>> update_advertisements_noImage_map(@Path("id") int id,@PartMap Map<String , RequestBody> parameters);
+    Call<BaseResponse<Advertisement>> update_advertisements_noImage_map(@Path("id") int id, @PartMap Map<String, RequestBody> parameters);
 
     @DELETE("advertisements/{id}")
     Call<BaseResponse<Advertisement>> delete_advertisements(@Path("id") int id);
 
+    //**################################ --Operation
+
+    @POST("operations")
+    @Multipart
+    Call<BaseResponse<Operation>> store_operation(@PartMap Map<String, RequestBody> parameters);
 }

@@ -44,6 +44,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DialogListener {
     private static final String TAG = "MainActivity";
     private Button btn_newUser, btn_newEmp, btn_newAdv;
+    private Button btn_dashboard;
     private RecyclerView recyclerView_user,recyclerView_emp,recyclerView_adv;
 
     private UserAdapter userAdapter;
@@ -137,12 +138,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView_emp = findViewById(R.id.recycler_emp);
         recyclerView_adv = findViewById(R.id.recycler_adv);
 
+        btn_dashboard = findViewById(R.id.btn_dashboard);
+
         btn_newUser = findViewById(R.id.btn_newUser);
         btn_newEmp = findViewById(R.id.btn_newEmp);
         btn_newAdv = findViewById(R.id.btn_newAdv);
     }
 
     private void setClick() {
+        btn_dashboard.setOnClickListener(this);
+
         btn_newUser.setOnClickListener(this);
         btn_newEmp.setOnClickListener(this);
         btn_newAdv.setOnClickListener(this);
@@ -198,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_dashboard:
+                setIntent(DashboardActivity.class);
+                break;
             case R.id.btn_newUser:
                 setIntent(NewUserActivity.class);
                 break;

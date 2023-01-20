@@ -14,5 +14,9 @@ public class Category {
     @SerializedName("actions_count")
     @Expose
     public String actionsCount;
+    //it was integer but i turn it to double
+    @SerializedName("total")
+    @Expose
+    public Double total;
 
 }

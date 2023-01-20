@@ -40,4 +40,22 @@
     <string name="don_t_worry_will_help_you_restore_it">Don\'t worry will help you restore it</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete!</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="new_operation">New Operation</string>
+    <string name="operation_info">Operation Info</string>
+    <string name="amount">The amount</string>
+    <string name="details">Details</string>
+
+
+    <string-array name="actor_type">
+        <item>Employee</item>
+        <item>Resident</item>
+    </string-array>
+
+    <string-array name="category_id">
+        <item>ResidentService: 1</item>
+        <item>Salary: 2</item>
+        <item>Purchases: 3</item>
+        <item>Maintenance: 4</item>
+    </string-array>
 </resources>

@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Operation {
 
-    @SerializedName("id")
-    @Expose
-    public Integer id;
     @SerializedName("category_id")
     @Expose
     public String categoryId;
@@ -17,14 +14,17 @@ public class Operation {
     @SerializedName("details")
     @Expose
     public String details;
-    @SerializedName("actor_id")
-    @Expose
-    public String actorId;
     @SerializedName("date")
     @Expose
     public String date;
-    @SerializedName("actor")
+    @SerializedName("actor_id")
     @Expose
-    public Object actor;
+    public Integer actorId;
+    @SerializedName("id")
+    @Expose
+    public Integer id;
+    @SerializedName("category_name")
+    @Expose
+    public String categoryName;
 
 }

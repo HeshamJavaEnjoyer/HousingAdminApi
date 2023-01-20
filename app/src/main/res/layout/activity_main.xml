@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -68,7 +67,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_user"
         android:layout_width="0dp"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
@@ -80,7 +79,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_emp"
         android:layout_width="0dp"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
@@ -92,7 +91,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_adv"
         android:layout_width="0dp"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
@@ -101,6 +100,17 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_advertisement" />
 
+    <!--For The DASHBOARD-->
+    <Button
+        android:id="@+id/btn_dashboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/dashboard"
+        android:backgroundTint="@color/special_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/recycler_adv" />
     <!--FOR THE SNACK_BAR-->
     <View
         android:id="@+id/snackBar_action"
