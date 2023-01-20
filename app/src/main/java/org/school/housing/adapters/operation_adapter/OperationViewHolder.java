@@ -26,11 +26,11 @@ public class OperationViewHolder extends RecyclerView.ViewHolder {
     }
     @SuppressLint("SetTextI18n")
     protected void setData(Operation data) {
-        tv_opId.setText("OP_ID :"+data.id);
-        tv_categoryName.setText(data.categoryName);
-        tv_opAmount.setText("OP_amount :"+data.amount);
-        tv_opDetails.setText("OP_details :"+data.details);
-        tv_opDate.setText("OP_date"+data.date);
-        tv_opActorId.setText("Actor_ID"+data.actorId);
+        tv_opId.setText("Op_ID :"+data.id);
+        tv_categoryName.setText("Cate_name :"+data.categoryName);
+        tv_opAmount.setText("Op_amount :"+data.amount);
+        tv_opDetails.setText("Op_details :"+data.details);
+        tv_opDate.setText("Op_date : "+data.date);
+        tv_opActorId.setText("Actor_ID : "+data.actorId);
     }
 }

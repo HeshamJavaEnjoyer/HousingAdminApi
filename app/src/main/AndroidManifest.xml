@@ -18,31 +18,36 @@
         android:theme="@style/Theme.Housing"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <!--NewOperationActivity-->
+        <!-- EditOperationActivity -->
+        <activity
+            android:name=".views.op_forms.EditOperationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <!-- NewOperationActivity -->
         <activity
             android:name=".views.op_forms.NewOperationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!-- Dashboard -->
+        </activity> <!-- Dashboard -->
         <activity
             android:name=".views.DashboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!-- Password Act -->
+        </activity> <!-- Password Act -->
         <activity
             android:name=".views.password_form.PasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!-- Editing Act -->
+        </activity> <!-- Editing Act -->
         <activity
             android:name=".views.edit_forms.EditAdvActivity"
             android:exported="false">
@@ -63,8 +68,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!-- Creating Act -->
+        </activity> <!-- Creating Act -->
         <activity
             android:name=".views.forms.NewAdvActivity"
             android:exported="false">

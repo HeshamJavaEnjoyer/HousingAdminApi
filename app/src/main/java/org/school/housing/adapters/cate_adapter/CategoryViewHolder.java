@@ -24,7 +24,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     protected void setData(Category data){
         tv_id.setText("CATEGORY_ID :"+data.id);
         tv_name.setText(data.name);
-        tv_actionCount.setText(data.actionsCount);
+        tv_actionCount.setText("ActionCount : "+data.actionsCount);
         tv_total.setText("Total :"+data.total);
     }
 }

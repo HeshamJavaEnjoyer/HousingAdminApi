@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bac_emp"
     android:layout_margin="5dp"
-    android:padding="5dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:padding="15dp"
+    android:background="@drawable/empty_bac_9">
 
     <View
         android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:background="@color/golden_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/emp_name"
         android:layout_width="0dp"
@@ -55,8 +57,8 @@
         android:textAlignment="center"
         android:textColor="@color/golden_yellow"
         android:textColorHint="@color/sugar_white"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/divider_down"
         app:layout_constraintEnd_toStartOf="@+id/emp_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emp_mobile" />
@@ -76,6 +78,7 @@
         android:id="@+id/divider_down"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/golden_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

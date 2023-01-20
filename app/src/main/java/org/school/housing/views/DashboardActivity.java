@@ -3,25 +3,28 @@ package org.school.housing.views;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-
 import org.school.housing.R;
 import org.school.housing.adapters.cate_adapter.CategoryAdapter;
 import org.school.housing.adapters.operation_adapter.OperationAdapter;
 import org.school.housing.api.controllers.ContentApiController;
+import org.school.housing.enums.Keys;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.models.Category;
 import org.school.housing.models.Operation;
+import org.school.housing.views.op_forms.EditOperationActivity;
 import org.school.housing.views.op_forms.NewOperationActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,6 +48,21 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             //for Enabling the ->getting back to home Act Method
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_editOperation) {
+            setIntent(EditOperationActivity.class);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -98,6 +116,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 view_badInternet.setVisibility(View.INVISIBLE);
                 progressBar_loading.setVisibility(View.INVISIBLE);
                 operationAdapter = new OperationAdapter(list);
+                operationAdapter.setRvClickListener(object -> {
+                    Intent intent = new Intent(DashboardActivity.this, EditOperationActivity.class);
+                    intent.putExtra(Keys.OperaKey.name(), (Serializable) object);
+                    startActivity(intent);
+                });
                 operation_recyclerView.setAdapter(operationAdapter);
             }
 
@@ -117,13 +140,13 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_newOp) {
-            startActivity(new Intent(this,NewOperationActivity.class));
+            setIntent(NewOperationActivity.class);
         }
     }
-/*-
+
     private void setIntent(Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
-*/
+
 
 }

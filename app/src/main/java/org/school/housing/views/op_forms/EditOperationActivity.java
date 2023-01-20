@@ -20,9 +20,12 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.OperationApiController;
 import org.school.housing.enums.ActorType;
-import org.school.housing.enums.CategoryId;
+import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.DeleteConfirmationDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
+import org.school.housing.interfaces.dialog.DialogListener;
+import org.school.housing.models.Operation;
 import org.school.housing.models.admin.Employee;
 import org.school.housing.models.admin.User;
 
@@ -32,27 +35,43 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class NewOperationActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "NewOperationActivity";
-    private Button btn_submit;
+public class EditOperationActivity extends AppCompatActivity implements View.OnClickListener, DialogListener {
+    private static final String TAG = "EditOperationActivity";
+    private Button btn_submit, btn_deleteOp;
     private TextInputEditText amount_edt, details_edt;
-    //,date_edt;
+
     private Spinner spinner_categoryId, spinner_actorId, spinner_actorType;
     //----------------containers
     private String cateId, amount, details, actor_id, actor_type, date;
+
     //-----spinners
     private final List<String> empIds = new ArrayList<>();
-//    private final List<String> empIdsNames = new ArrayList<>();
     private final List<String> userIds = new ArrayList<>();
-//    private final List<String> userIdsNames = new ArrayList<>();
 
-
+    //For Update Purpose
+    private int id;
+    private Operation mIntentOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_operation);
+        setContentView(R.layout.activity_edit_operation);
         setActBar();
+    }
+
+    private void setIntentOperation() {
+        mIntentOperation = (Operation) getIntent().getSerializableExtra(Keys.OperaKey.name());
+        if (mIntentOperation != null) {
+            id = mIntentOperation.id;
+            details_edt.setText(mIntentOperation.details);
+            amount_edt.setText(mIntentOperation.amount);
+
+            spinner_categoryId.setEnabled(false);
+            spinner_actorId.setVisibility(View.INVISIBLE);
+        } else {
+            controlSpinnerChoose();
+            Log.d(TAG, "setIntentEmp() returned: object is " + false);
+        }
     }
 
     //For ActionBar BackButton(Arrow)
@@ -61,6 +80,7 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
         onBackPressed();
         return true;
     }
+
     //For ActionBar BackButton(Arrow)
     private void setActBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -79,7 +99,15 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         findViews();
         setEveryClicks();
-        controlSpinnerChoose();
+
+        setIntentOperation();
+
+        if (mIntentOperation == null) {
+            controlSpinnerChoose();
+        } else {
+            spinner_actorId.setEnabled(false);
+        }
+
     }
 
     private void findViews() {
@@ -90,10 +118,12 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
         spinner_actorType = findViewById(R.id.spinner_actor_type);
 
         btn_submit = findViewById(R.id.btn_submit_newOperation);
+        btn_deleteOp = findViewById(R.id.btn_deleteOperation);
     }
 
     private void setEveryClicks() {
         btn_submit.setOnClickListener(this);
+        btn_deleteOp.setOnClickListener(this);
     }
 
     private void controlSpinnerChoose() {
@@ -102,12 +132,12 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 switch (position) {
                     case 0:
-                        Toast.makeText(NewOperationActivity.this, "Resident SoBe It", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditOperationActivity.this, "Resident SoBe It", Toast.LENGTH_SHORT).show();
                         setSpinner_actorIdResident();
                         spinner_actorId.setEnabled(true);
                         break;
                     case 1:
-                        Toast.makeText(NewOperationActivity.this, "Employee SoBe It", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditOperationActivity.this, "Employee SoBe It", Toast.LENGTH_SHORT).show();
                         setSpinner_actorIdEmp();
                         spinner_actorId.setEnabled(true);
                         break;
@@ -125,33 +155,34 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        if (view.getId() == btn_submit.getId()) {
-            performStoreForOp();
+        switch (view.getId()) {
+            case R.id.btn_deleteOperation:
+                new DeleteConfirmationDialog().show(getSupportFragmentManager(), "DeleteOperation");
+                break;
+            case R.id.btn_submit_newOperation:
+                performUpdateForOp();
+                break;
         }
     }
 
+    private int setIdValue() {
+        if (mIntentOperation != null) {
+            id = mIntentOperation.id;
+        } else {
+            controlSpinnerChoose();
+        }
+        return id;
+    }
 
     private boolean saveUserEntryFromUi() {
-        final String user_cateId = String.valueOf(spinner_categoryId.getSelectedItemId());
-        switch (user_cateId) {
-            case "0":
-                cateId = String.valueOf(CategoryId.ResidentService.id);
-//                setSpinner_actorIdResident();
-                break;
-            case "1":
-                cateId = String.valueOf(CategoryId.Salary.id);
-//                setSpinner_actorIdEmp();
-                break;
-            case "2":
-                cateId = String.valueOf(CategoryId.Purchases.id);
-                break;
-            case "3":
-                cateId = String.valueOf(CategoryId.Maintenance.id);
-                break;
-        }// TODO: 1/20/2023 check here
-//
+
+        id = setIdValue();
+
+        cateId = setCateIdValue();
+
         final String user_amount = Objects.requireNonNull(amount_edt.getText()).toString().trim();
         if (!user_amount.isEmpty()) {
             amount = user_amount;
@@ -159,7 +190,7 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
             Log.d(TAG, "user_amount() null");
             return false;
         }
-//                = doubleAmountToSt(45.18);
+
         final String user_details = Objects.requireNonNull(details_edt.getText()).toString().trim();
         if (!user_details.isEmpty()) {
             details = user_details;
@@ -167,20 +198,9 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
             Log.d(TAG, "user_details() null");
             return false;
         }
-//                = "This is a Details for this Transaction";
 
-        //Related Var {
-        final String user_actor_id = String.valueOf(spinner_actorId.getSelectedItem());
-        if (!user_actor_id.isEmpty()) {// TODO: 1/20/2023 check here
-            actor_id = user_actor_id;
-            Log.d(TAG, "user_actor_id() returned: " + user_actor_id);
-        } else {
-            Log.d(TAG, "user_actor_id() returned: null");
-            Log.d(TAG, "user_actor_id() returned: " + user_actor_id);
-            return false;
-        }
-//                = actorIdToSt(167);
-        //guide with if()
+        actor_id = setActorId();
+
         final String user_actor_type = String.valueOf(spinner_actorType.getSelectedItemId());
         switch (user_actor_type) {
             case "0":
@@ -189,7 +209,7 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
             case "1":
                 actor_type = String.valueOf(ActorType.Resident);
                 break;
-        }// TODO: 1/20/2023 check here
+        }
 
 //                = ActorType.Employee.name();
         // }
@@ -200,22 +220,43 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
         return true;
     }
 
+    private String setActorId() {
+        if (mIntentOperation != null) {
+            actor_id = String.valueOf(mIntentOperation.actorId);
+            return actor_id;
+        } else {
+            final String user_actor_id = String.valueOf(spinner_actorId.getSelectedItem());
+            if (!user_actor_id.isEmpty()) {
+                actor_id = user_actor_id;
+                Log.d(TAG, "user_actor_id() returned: " + user_actor_id);
+                return actor_id;
+            }
+            return "null";
+        }
+    }
+
+    private String setCateIdValue() {
+        Log.d(TAG, "setCateIdValue() returned: " + mIntentOperation.categoryId);
+        cateId = mIntentOperation.categoryId;
+        return cateId;
+    }
+
     private boolean checkData() {
         return !Objects.requireNonNull(amount_edt.getText()).toString().isEmpty()
                 && !Objects.requireNonNull(details_edt.getText()).toString().isEmpty();
     }
 
-    private void performStoreForOp() {
+    private void performUpdateForOp() {
         if (checkData()) {
-            storeOp();
+            updateOp();
         } else {
             Snackbar.make(findViewById(R.id.snackBar_action), "Check Empty fields", Snackbar.LENGTH_LONG).show();
         }
     }
 
-    private void storeOp() {
+    private void updateOp() {
         if (saveUserEntryFromUi()) {
-            OperationApiController.getInstance().storeOperation(cateId, amount, details, actor_id, actor_type, date, new ProcessCallback() {
+            OperationApiController.getInstance().updateOperation(id, cateId, amount, details, actor_id, actor_type, date, new ProcessCallback() {
                 @Override
                 public void onSuccess(String message) {
                     Log.d(TAG, "onSuccess() called with: message = [" + message + "]");
@@ -241,14 +282,14 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
                     empIds.add(String.valueOf(list.get(i).id));
 //                    empIdsNames.add( "=> " + list.get(i).name);
                 }
-                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(NewOperationActivity.this, android.R.layout.simple_list_item_1, empIds);
+                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, empIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
             }
 
             @Override
             public void onFailure(String message) {
                 Snackbar.make(findViewById(R.id.snackBar_action), message, Snackbar.LENGTH_LONG).setAction("TryAgain", view -> setSpinner_actorIdEmp()).show();
-//                Toast.makeText(NewOperationActivity.this, message, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditOperationActivity.this, message, Toast.LENGTH_SHORT).show();
                 spinner_actorId.setEnabled(false);
             }
         });
@@ -261,14 +302,14 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
                 for (int i = 0; i < list.size(); i++) {
                     userIds.add(String.valueOf(list.get(i).id));
                 }
-                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(NewOperationActivity.this, android.R.layout.simple_list_item_1, userIds);
+                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, userIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
             }
 
             @Override
             public void onFailure(String message) {
                 Snackbar.make(findViewById(R.id.snackBar_action), message, Snackbar.LENGTH_LONG).setAction("TryAgain", view -> setSpinner_actorIdResident()).show();
-//                Toast.makeText(NewOperationActivity.this, message, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditOperationActivity.this, message, Toast.LENGTH_SHORT).show();
                 spinner_actorId.setEnabled(false);
             }
         });
@@ -287,55 +328,38 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-}
+    //=====================================================
+//4    public void setSpinText(Spinner spin, String text) {
+//        for (int i = 0; i < spin.getAdapter().getCount(); i++) {
+//            if (spin.getAdapter().getItem(i).toString().contains(text)) {
+//                spin.setSelection(i);
+//            }
+//        }
+//
+//    }
 
-/*
-  @deprecated {@code @testForStoreOp}
-//WorksFine./
-private void testForStoreOp() {
-//"category_id": "1",
-//"amount": "100",
-//"details": "Details",
-//"date": "2023-01-01",
-//"actor_id": 167,
-//"id": 306,
-
-//"category_id":[1,2,3,4] -dep on FixedCategory
-//"amount": =99.9,
-//"details": "bullshit",
-//"date": "2023-01-01", Y - M - D
-//"actor_type": [Employee/Resident], Must Pick one Type either Emp or Resident
-//"actor_id": 167, Must be a valid id for Emp or Resident And belong to Token
-//"id": 306, I GUESS THIS just the op id
-
-
-OperationApiController.getInstance().storeOperation(cateId, amount, details, actor_id, actor_type, date, new ProcessCallback() {
-@Override
-public void onSuccess(String message) {
-Log.d(TAG, "onSuccess() called with: message = [" + message + "]");
-Toast.makeText(NewOperationActivity.this, message, Toast.LENGTH_SHORT).show();
-}
-
-@Override
-public void onFailure(String massage) {
-Log.d(TAG, "onSuccess() called with: message = [" + massage + "]");
-Toast.makeText(NewOperationActivity.this, massage, Toast.LENGTH_SHORT).show();
-}
-});
-}
-
- */
-/*
-    //from double to St
-    private String doubleAmountToSt(double amount) {
-        return String.valueOf(amount);
-    }
-    */
-/*
-    //from int to st
-    private String actorIdToSt(int actor_id) {
-        return String.valueOf(actor_id);
+    @Override
+    public void onConfirmClicked() {
+        performDeleteOp();
     }
 
- */
+    private void performDeleteOp() {
+        if (!String.valueOf(id).isEmpty()) {
+            OperationApiController.getInstance().deleteOperation(id, new ProcessCallback() {
+                @Override
+                public void onSuccess(String message) {
+                    btn_submit.setEnabled(false);
+                    btn_deleteOp.setBackgroundColor(getResources().getColor(R.color.special_green));
+                    Snackbar.make(findViewById(R.id.snackBar_action), "Deleted Successfully=> " + message, Snackbar.LENGTH_LONG).show();
+                }
 
+                @Override
+                public void onFailure(String massage) {
+                    Snackbar.make(findViewById(R.id.snackBar_action), massage, Snackbar.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            Snackbar.make(findViewById(R.id.snackBar_action), "Please pick a valid id", Snackbar.LENGTH_LONG).show();
+        }
+    }
+}

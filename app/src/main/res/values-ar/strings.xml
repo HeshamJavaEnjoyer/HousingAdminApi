@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"> الإسكان </string>
+
+    <string name="welcome_sir"> مرحبًا بك سيدي ✨ </string>
+    <string name="welcome_back"> مرحبًا بك مرة أخرى … </string>
+    <string name="enter_email_amp_password">أدخل البريد الإلكتروني وكلمة المرور</string>
+    <string name="email"> البريد الإلكتروني </string>
+    <string name="password"> كلمة المرور </string>
+    <string name="login"> تسجيل الدخول </string>
+    <string name="logout"> تسجيل الخروج </string>
+    <string name="new_user"> مستخدم جديد </string>
+    <string name="user_info"> معلومات المستخدم </string>
+    <string name="user_name"> اسم المستخدم </string>
+    <string name="mobile"> الجوال </string>
+    <string name="national_number"> الرقم القومي </string>
+    <string name="family_members"> أفراد العائلة </string>
+    <string name="male"> ذكر </string>
+    <string name="female"> أنثى </string>
+    <string name="pick_an_image"> اختر صورة </string>
+    <string name="submit"> إرسال </string>
+    <string name="new_employee"> موظف جديد </string>
+    <string name="new_advertisement"> إعلان جديد </string>
+    <string name="info"> معلومات </string>
+    <string name="title"> العنوان </string>
+    <string name="delete"> حذف </string>
+    <string name="edit_users"> تحرير المستخدمين </string>
+    <string name="edit_employee"> تحرير الموظف </string>
+    <string name="edit_ads"> تحرير الإعلانات </string>
+    <string name="change_password"> تغيير كلمة المرور </string>
+    <string name="are_you_sure_you_want_to_logout"> هل أنت متأكد أنك تريد الخروج </string>
+    <string name="okay"> حسنًا </string>
+    <string name="choose_where_to_pick_the_image"> اختر من أين لاختيار الصورة </string>
+    <string name="gallery"> المعرض </string>
+    <string name="camera"> الكاميرا </string>
+    <string name="test_hint"> اختبار النص </string>
+    <string name="forget_my_password"> نسيت كلمة المرور الخاصة بي! </string>
+    <string name="create_account"> إنشاء حساب! </string>
+    <string name="forget_your_password"> نسيت كلمة المرور… </string>
+    <string name="don_t_worry_will_help_you_restore_it"> لا تقلق فسوف تساعدك على استعادتها </string>
+    <string name="mobile_number"> رقم الجوال </string>
+    <string name="are_you_sure_you_want_to_delete"> هل أنت متأكد أنك تريد الحذف! </string>
+    <string name="dashboard"> لوحة التحكم </string>
+    <string name="new_operation"> عملية جديدة </string>
+    <string name="operation_info"> معلومات العملية </string>
+    <string name="amount"> المبلغ </string>
+    <string name="details"> التفاصيل </string>
+    <string name="current_password"> كلمة المرور الحالية </string>
+    <string name="new_password"> كلمة مرور جديدة </string>
+    <string name="edit_operation"> تحرير العملية </string>
+
+
+    <string-array name="actor_type">
+        <item> موظف </item>
+        <item> مقيم </item>
+    </string-array>
+
+    <string-array name="category_id">
+        <item> ResidentService: 1 </item>
+        <item> الراتب: 2 </item>
+        <item> المشتريات: 3 </item>
+        <item> الصيانة: 4 </item>
+    </string-array>
+    <string name="employee_info">معلومات الموظف</string>
+    <string name="advertisement_info">معلومات الأعلان</string>
+</resources>

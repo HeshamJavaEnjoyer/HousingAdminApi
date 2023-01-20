@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_pool"
+    tools:context=".views.op_forms.EditOperationActivity">
+
+    <Button
+        android:id="@+id/btn_deleteOperation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/shiny_red"
+        android:text="@string/delete"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start"
+        app:layout_constraintTop_toBottomOf="@id/g_top" />
+
+    <!--ALL THE Guideline-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/g_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/g_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/g_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/g_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+    <!--Me  -->
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="70dp"
+        android:contentDescription="@string/details"
+        android:src="@drawable/ic_mode_edit"
+        android:translationZ="5dp"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start"
+        app:layout_constraintTop_toTopOf="@id/g_top"
+        tools:ignore="ImageContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/userEntryForm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:background="@color/special_gray"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="30dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start"
+        app:layout_constraintTop_toTopOf="@+id/g_top">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:text="@string/operation_info"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+
+        <!--====================================================================================================        -->
+        <!-- cateId_edt, amount_edt, details_edt, actor_id_edt, actor_type_edt, date_edt-->
+        <!--====================================================================================================        -->
+        <!-- Section 1    cateId_edt    -->
+        <Spinner
+            android:id="@+id/spinner_category_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:entries="@array/category_id"
+            android:padding="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center" />
+
+        <!--====================================================================================================        -->
+        <!-- Section 2    amount_edt   -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/amount"
+            android:tag="@string/amount"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/fade_black"
+            app:boxStrokeColor="@color/golden_yellow"
+            app:hintTextColor="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amount_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                tools:ignore="DuplicateSpeakableTextCheck,DuplicateSpeakableTextCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--====================================================================================================        -->
+        <!-- Section 3    details_edt  -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/details"
+            android:tag="@string/details"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/fade_black"
+            app:boxStrokeColor="@color/golden_yellow"
+            app:hintTextColor="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/details_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="55"
+                android:textColor="@color/white"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--====================================================================================================        -->
+        <!-- Section 4    actor_id_edt    -->
+        <Spinner
+            android:id="@+id/spinner_actor_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            style="android.R.layout.simple_list_item_1"
+            android:contentDescription="@string/amount"
+            android:padding="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center" />
+
+        <!--====================================================================================================        -->
+        <!-- Section 5   actor_type_edt     -->
+        <Spinner
+            android:id="@+id/spinner_actor_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:entries="@array/actor_type"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center" />
+        <!--====================================================================================================        -->
+        <!--Section 6  date_edt      -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:tag="tobe diced it" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit_newOperation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="@id/g_bottom"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start" />
+
+    <!--FOR THE SNACK_BAR-->
+    <View
+        android:id="@+id/snackBar_action"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/g_bottom"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start" />
+</androidx.constraintlayout.widget.ConstraintLayout>

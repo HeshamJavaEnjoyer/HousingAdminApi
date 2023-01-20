@@ -34,7 +34,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         if (data.imageUrl!= null){
             Picasso.get().load(data.imageUrl).into(user_imageView);
         }else {
-            user_imageView.setImageResource(R.drawable.image_no_image);
+            user_imageView.setImageResource(R.drawable.ic_image_not_supported);
         }
 
         tv_name.setText(data.name);

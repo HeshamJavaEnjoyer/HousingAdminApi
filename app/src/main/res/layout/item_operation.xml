@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/bac_users"
+    android:background="@drawable/empty_bac_9"
     android:padding="5dp">
 
     <View
@@ -37,9 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColor="@color/golden_yellow"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:background="@drawable/shape_user_form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/operation_id"

@@ -35,9 +35,11 @@ public class AdvViewHolder extends RecyclerView.ViewHolder {
         if (data.imageUrl!= null){
             Picasso.get().load(data.imageUrl).into(adv_imageView);
         }else {
-            adv_imageView.setImageResource(R.drawable.image_no_image);
+            adv_imageView.setMaxWidth(45);
+            adv_imageView.setMaxHeight(45);
+            adv_imageView.setImageResource(R.drawable.ic_image_not_supported);
         }
-        tv_id.setText("Adv_ID :"+data.id);
+        tv_id.setText("Ad_ID :"+data.id);
         tv_title.setText(data.title);
         tv_info.setText(data.info);
     }

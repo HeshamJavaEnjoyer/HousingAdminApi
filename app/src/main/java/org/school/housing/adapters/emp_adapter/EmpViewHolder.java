@@ -31,8 +31,8 @@ public class EmpViewHolder extends RecyclerView.ViewHolder {
     protected void setData(Employee data){
         if (data.imageUrl!= null){
             Picasso.get().load(data.imageUrl).into(emp_imageView);
-        }else {
-            emp_imageView.setImageResource(R.drawable.image_no_image);
+        } else {
+            emp_imageView.setImageResource(R.drawable.ic_image_not_supported);
         }
 
         tv_name.setText(data.name);

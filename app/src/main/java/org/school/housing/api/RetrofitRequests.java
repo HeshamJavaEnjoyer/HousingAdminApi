@@ -21,6 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -170,4 +171,11 @@ public interface RetrofitRequests {
     @POST("operations")
     @Multipart
     Call<BaseResponse<Operation>> store_operation(@PartMap Map<String, RequestBody> parameters);
+
+    @PUT("operations/{id}")
+    @Multipart
+    Call<BaseResponse<Operation>> update_operation(@Path("id") int id ,@PartMap Map<String, RequestBody> parameters);
+
+    @DELETE("operations/{id}")
+    Call<BaseResponse<Operation>> delete_operation(@Path("id") int id);
 }

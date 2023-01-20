@@ -3,7 +3,9 @@ package org.school.housing.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Operation {
+import java.io.Serializable;
+//implements Serializable  for move a whole object around
+public class Operation implements Serializable {
 
     @SerializedName("category_id")
     @Expose
