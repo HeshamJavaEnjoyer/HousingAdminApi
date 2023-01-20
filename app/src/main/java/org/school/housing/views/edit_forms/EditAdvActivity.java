@@ -27,9 +27,11 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.AdvApiController;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.DeleteConfirmationDialog;
 import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
+import org.school.housing.interfaces.dialog.DialogListener;
 import org.school.housing.models.admin.Advertisement;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditAdvActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener{
+public class EditAdvActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener, DialogListener {
 
     private static final String TAG = "EditAdvActivity";
     private TextInputEditText title_edt, info_edt;
@@ -46,7 +48,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
 
     private Spinner dropdown;
     private int id;
-    private final List<String> items = new ArrayList<>();
+    private final List<String> spinnerAdv_idsList = new ArrayList<>();
 
     //-Image
     private ActivityResultLauncher<String> permissionResultLauncher;
@@ -89,6 +91,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
         setIntentAdv();
 
         if (mIntentAdv == null) {
+            Log.d(TAG, "mIntentAdv() null");
             setupSpinnerAdapter();
         } else {
             dropdown.setEnabled(false);
@@ -103,15 +106,16 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(List<Advertisement> list) {
                 for (int i = 0; i < list.size(); i++) {
-                    items.add(String.valueOf(list.get(i).id));
+                    spinnerAdv_idsList.add(String.valueOf(list.get(i).id));
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditAdvActivity.this, android.R.layout.simple_list_item_1, items);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditAdvActivity.this, android.R.layout.simple_list_item_1, spinnerAdv_idsList);
                 dropdown.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(String message) {
                 Log.d(TAG, "onFailure() returned: " + message);
+                Snackbar.make(findViewById(R.id.snackBar_action),message,Snackbar.LENGTH_LONG).setAction("Refresh Spinner",view ->setupSpinnerAdapter()).show();
             }
         });
 
@@ -146,7 +150,8 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
                 performUpdate();
                 break;
             case R.id.btn_deleteAdv:
-                performDelete();
+                //Confirm with a dialog
+                new DeleteConfirmationDialog().show(getSupportFragmentManager(),"DeleteAdv");
                 break;
         }
     }
@@ -338,4 +343,9 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
         }
     });
 
+    //This Will be called when Dialog Btn Clicked
+    @Override
+    public void onConfirmClicked() {
+        performDelete();
+    }
 }

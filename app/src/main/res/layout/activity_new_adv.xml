@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s_bottomFlame"
+    android:background="@color/footer_flame"
     tools:context=".views.forms.NewAdvActivity">
 
     <!--ALL THE Guideline-->
@@ -42,7 +42,7 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginTop="150dp"
-        android:src="@drawable/house_icon"
+        android:src="@drawable/ic_app_house"
         android:translationZ="5dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/s_fazeSea"
+            android:backgroundTint="@color/faze_sea"
             android:text="@string/pick_an_image" />
     </LinearLayout>
 

@@ -9,17 +9,14 @@
         android:orderInCategory="@integer/material_motion_duration_long_1">
         <item
             android:id="@+id/menu_editUser"
-            android:icon="@drawable/ic_users"
             android:title="@string/edit_users"
             app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/menu_editEmp"
-            android:icon="@drawable/ic_edit_emp"
             android:title="@string/edit_employee"
             app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/menu_editAdv"
-            android:icon="@drawable/ic_edit_ad"
             android:title="@string/edit_ads"
             app:showAsAction="collapseActionView" />
     </group>

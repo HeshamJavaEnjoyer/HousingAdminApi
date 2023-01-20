@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s_fazeSea"
+    android:background="@color/faze_sea"
     tools:context=".views.edit_forms.EditAdvActivity">
 
     <!--Edit Prosper    -->
@@ -16,7 +16,8 @@
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
-        app:layout_constraintTop_toBottomOf="@id/g_top" />
+        app:layout_constraintTop_toBottomOf="@id/g_top"
+        tools:ignore="SpeakableTextPresentCheck" />
     <Button
         android:id="@+id/btn_deleteAdv"
         android:layout_width="0dp"
@@ -151,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/s_fazeSea"
+            android:backgroundTint="@color/faze_sea"
             android:text="@string/pick_an_image" />
     </LinearLayout>
 

@@ -5,11 +5,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--My Colors    -->
-    <color name="h_darkBlood">#780000</color>
-    <color name="h_lessBlood">#C1121F</color>
-    <color name="h_clearWhite">#FDF0D5</color>
-    <color name="h_darkBlue">#003049</color>
-    <color name="h_lessBlue">#669BBC</color>
+    <color name="red_blood">#780000</color>
+    <color name="red_hot">#C1121F</color>
+    <color name="sugar_white">#FDF0D5</color>
+    <color name="dark_pool">#003049</color>
+    <color name="far_sky">#669BBC</color>
 
     <!--spacial    -->
     <color name="special_gray">#32465A</color>
@@ -20,10 +20,10 @@
     <color name="shiny_red">#DB3A34</color>
 
     <!--Pattern2    -->
-    <color name="s_fazeSea">#264653</color>
-    <color name="s_oldIce">#2A9D8F</color>
-    <color name="s_topFlame">#E9C46A</color>
-    <color name="s_middleFlame">#F4A261</color>
-    <color name="s_bottomFlame">#E76F51</color>
+    <color name="faze_sea">#264653</color>
+    <color name="old_ice">#2A9D8F</color>
+    <color name="head_flame">#E9C46A</color>
+    <color name="tummy_flame">#F4A261</color>
+    <color name="footer_flame">#E76F51</color>
 
 </resources>

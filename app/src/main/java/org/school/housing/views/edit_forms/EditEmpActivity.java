@@ -27,9 +27,11 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.EmpApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.DeleteConfirmationDialog;
 import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
+import org.school.housing.interfaces.dialog.DialogListener;
 import org.school.housing.models.admin.Employee;
 
 import java.io.ByteArrayOutputStream;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditEmpActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener {
+public class EditEmpActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener, DialogListener {
     private static final String TAG = "EditEmpActivity";
 
     private TextInputEditText username_edt, mobile_edt, national_number_edt;
@@ -145,7 +147,8 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
                 performUpdate();
                 break;
             case R.id.btn_deleteEmp:
-                performDeleteEmp();
+                //Confirm with a dialog
+                new DeleteConfirmationDialog().show(getSupportFragmentManager(),"DeleteAdv");
                 break;
         }
     }
@@ -340,4 +343,9 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
         }
     });
 
+    //This Will be called when Dialog Btn Clicked
+    @Override
+    public void onConfirmClicked() {
+        performDeleteEmp();
+    }
 }

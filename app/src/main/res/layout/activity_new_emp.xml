@@ -41,8 +41,8 @@
         android:id="@+id/profileImage"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/house_icon"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_app_house"
         android:translationZ="5dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
@@ -53,7 +53,7 @@
         android:id="@+id/userEntryForm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/shape_emp_form"
 
         android:orientation="vertical"
@@ -162,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/s_fazeSea"
+            android:backgroundTint="@color/faze_sea"
             android:text="@string/pick_an_image" />
     </LinearLayout>
 

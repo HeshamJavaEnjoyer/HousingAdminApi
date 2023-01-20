@@ -4,31 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/special_gray"
-    android:padding="15dp">
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    android:background="@color/special_gray">
 
     <ImageView
         android:id="@+id/dialog_image"
         android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="9dp"
+        android:layout_height="65dp"
         android:src="@drawable/ic_delete_forever"
-        app:layout_constraintBottom_toTopOf="@id/btn_dialog_okay"
-        app:layout_constraintEnd_toStartOf="@id/dialog_title"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="@+id/dialog_title"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_margin="15dp"
         android:text="@string/are_you_sure_you_want_to_delete"
         android:textColor="@color/white"
         android:textSize="19sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_dialog_okay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/dialog_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,9 +37,10 @@
         android:id="@+id/btn_dialog_okay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/okay"
         android:backgroundTint="@color/shiny_red"
+        android:text="@string/okay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

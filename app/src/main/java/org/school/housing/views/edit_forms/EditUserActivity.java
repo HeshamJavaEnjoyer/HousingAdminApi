@@ -27,9 +27,11 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.UserApiController;
 import org.school.housing.enums.Keys;
+import org.school.housing.fragments.dialogs.DeleteConfirmationDialog;
 import org.school.housing.fragments.dialogs.ImagePickerDialog;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.interfaces.ProcessCallback;
+import org.school.housing.interfaces.dialog.DialogListener;
 import org.school.housing.models.admin.User;
 
 import java.io.ByteArrayOutputStream;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EditUserActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener {
+public class EditUserActivity extends AppCompatActivity implements View.OnClickListener, ImagePickerDialog.ImagePickerListener, DialogListener {
     private static final String TAG = "EditUserActivity";
     private TextInputEditText username_edt, email_edt, mobile_edt, national_number_edt, family_members_edt;
     private Button submit_button, btn_pick_image, btn_deleteUser;
@@ -151,7 +153,8 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         } else if (view.getId() == btn_pick_image.getId()) {
             new ImagePickerDialog().show(getSupportFragmentManager(), "PickingImage");
         } else if (view.getId() == btn_deleteUser.getId()) {
-            performDeleteUser();
+            //Confirm with a dialog
+            new DeleteConfirmationDialog().show(getSupportFragmentManager(),"DeleteAdv");
         }
     }
 
@@ -354,5 +357,9 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         }
     });
 
-
+    //This Will be called when Dialog Btn Clicked
+    @Override
+    public void onConfirmClicked() {
+        performDeleteUser();
+    }
 }

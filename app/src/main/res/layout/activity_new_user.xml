@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s_fazeSea"
+    android:background="@color/faze_sea"
     tools:context=".views.forms.NewUserActivity">
     <!--ALL THE Guideline-->
     <androidx.constraintlayout.widget.Guideline
@@ -41,7 +41,7 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/house_icon"
+        android:src="@drawable/ic_app_house"
         android:translationZ="5dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/male"
-                android:textColor="@color/h_clearWhite" />
+                android:textColor="@color/sugar_white" />
 
             <RadioButton
                 android:id="@+id/female_radio_button"
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/female"
-                android:textColor="@color/h_clearWhite" />
+                android:textColor="@color/sugar_white" />
 
         </RadioGroup>
 
@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/h_darkBlue"
+            android:backgroundTint="@color/dark_pool"
             android:text="@string/pick_an_image" />
     </LinearLayout>
 

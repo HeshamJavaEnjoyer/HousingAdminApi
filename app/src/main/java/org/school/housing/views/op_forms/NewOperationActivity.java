@@ -99,8 +99,8 @@ public class NewOperationActivity extends AppCompatActivity implements View.OnCl
     private void controlSpinnerChoose() {
         spinner_categoryId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position) {
                     case 0:
                         Toast.makeText(NewOperationActivity.this, "Resident SoBe It", Toast.LENGTH_SHORT).show();
                         setSpinner_actorIdResident();

@@ -44,7 +44,7 @@
         android:layout_height="110dp"
         android:layout_marginTop="70dp"
         android:contentDescription="@string/details"
-        android:src="@drawable/house_icon"
+        android:src="@drawable/ic_app_house"
         android:translationZ="5dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
@@ -90,6 +90,8 @@
             android:layout_margin="5dp"
             android:entries="@array/category_id"
             android:padding="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
         <!--====================================================================================================        -->
@@ -148,6 +150,8 @@
             style="android.R.layout.simple_list_item_1"
             android:contentDescription="@string/amount"
             android:padding="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
         <!--====================================================================================================        -->
@@ -157,7 +161,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="5dp"
+            android:padding="5dp"
             android:entries="@array/actor_type"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
             android:textAlignment="center" />
         <!--====================================================================================================        -->
         <!--Section 6  date_edt      -->

@@ -6,7 +6,7 @@
     android:viewportHeight="256"
     tools:ignore="VectorRaster">
   <path
-      android:fillColor="@color/h_clearWhite"
+      android:fillColor="@color/sugar_white"
       android:pathData="M128,32A96,96 0,0 0,63.8 199.4h0A72,72 0,0 1,128 160a40,40 0,1 1,40 -40,40 40,0 0,1 -40,40 72,72 0,0 1,64.2 39.4A96,96 0,0 0,128 32Z"
       android:strokeAlpha="0.2"
       android:fillAlpha="0.2"/>
@@ -14,13 +14,13 @@
       android:pathData="M128,120m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"
       android:strokeWidth="16"
       android:fillColor="#00000000"
-      android:strokeColor="@color/h_lessBlood"/>
+      android:strokeColor="@color/red_hot"/>
   <path
       android:pathData="M63.8,199.4a72,72 0,0 1,128.4 0"
       android:strokeLineJoin="round"
       android:strokeWidth="16"
       android:fillColor="#00000000"
-      android:strokeColor="@color/h_lessBlood"
+      android:strokeColor="@color/red_hot"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M176,56L224,56"
@@ -41,6 +41,6 @@
       android:strokeLineJoin="round"
       android:strokeWidth="16"
       android:fillColor="#00000000"
-      android:strokeColor="@color/s_oldIce"
+      android:strokeColor="@color/old_ice"
       android:strokeLineCap="round"/>
 </vector>

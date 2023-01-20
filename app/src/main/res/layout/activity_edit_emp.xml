@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/s_fazeSea"
+    android:background="@color/faze_sea"
     tools:context=".views.edit_forms.EditEmpActivity">
 
     <!--Edit Prosper    -->
@@ -19,6 +19,7 @@
         app:layout_constraintStart_toStartOf="@id/g_start"
         app:layout_constraintTop_toBottomOf="@id/g_top"
         tools:ignore="DuplicateSpeakableTextCheck" />
+
     <Button
         android:id="@+id/btn_deleteEmp"
         android:layout_width="0dp"
@@ -27,7 +28,8 @@
         android:text="@string/delete"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
-        app:layout_constraintTop_toBottomOf="@id/dropdown_menu_item_id" />
+        app:layout_constraintTop_toBottomOf="@id/dropdown_menu_item_id"
+        tools:ignore="TextContrastCheck" />
 
     <!--ALL THE Guideline-->
     <androidx.constraintlayout.widget.Guideline
@@ -184,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="@color/s_fazeSea"
+            android:backgroundTint="@color/faze_sea"
             android:text="@string/pick_an_image" />
     </LinearLayout>
 

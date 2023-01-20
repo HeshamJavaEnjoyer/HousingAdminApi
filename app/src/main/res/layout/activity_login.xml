@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_back"
-        android:textColor="@color/h_clearWhite"
+        android:textColor="@color/sugar_white"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
@@ -58,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="1.75dp"
         android:layout_marginTop="20dp"
-        android:background="@color/h_lessBlue"
+        android:background="@color/far_sky"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
         app:layout_constraintTop_toBottomOf="@id/login_subtitle" />
@@ -74,7 +74,7 @@
         android:layout_marginTop="15dp"
         android:hint="@string/email"
         android:textColorHint="@color/white"
-        app:helperTextTextColor="@color/h_clearWhite"
+        app:helperTextTextColor="@color/sugar_white"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
         app:layout_constraintTop_toBottomOf="@id/divider">
@@ -88,7 +88,7 @@
             android:inputType="textEmailAddress"
             android:maxLength="45"
             android:textColor="@color/white"
-            android:textColorHint="@color/h_clearWhite" />
+            android:textColorHint="@color/sugar_white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +101,7 @@
         android:layout_marginTop="15dp"
         android:hint="@string/password"
         android:textColorHint="@color/white"
-        app:helperTextTextColor="@color/h_clearWhite"
+        app:helperTextTextColor="@color/sugar_white"
         app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
         app:layout_constraintStart_toEndOf="@id/vertical_start_guide"
         app:layout_constraintTop_toBottomOf="@id/con_email_edit_text">
@@ -114,7 +114,7 @@
             android:drawableEnd="@drawable/ic_remove_eye"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/h_clearWhite" />
+            android:textColorHint="@color/sugar_white" />
     </com.google.android.material.textfield.TextInputLayout>
     <!--Password eye changer-->
     <View
