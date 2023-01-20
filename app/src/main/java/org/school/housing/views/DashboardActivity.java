@@ -11,19 +11,27 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+
 import org.school.housing.R;
 import org.school.housing.adapters.cate_adapter.CategoryAdapter;
+import org.school.housing.adapters.operation_adapter.OperationAdapter;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.interfaces.ListCallback;
 import org.school.housing.models.Category;
+import org.school.housing.models.Operation;
 import org.school.housing.views.op_forms.NewOperationActivity;
 
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
-    private RecyclerView categories_recyclerView;
+    private RecyclerView categories_recyclerView, operation_recyclerView;
     private CategoryAdapter categoryAdapter;
+    private OperationAdapter operationAdapter;
     private Button btn_newOp;
+    private View view_badInternet;
+
+    private CircularProgressIndicator progressBar_loading;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -56,11 +64,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         findViews();
         setEveryClick();
         setupCategoryRecV();
+        setupOperationRecV();
     }
 
     private void findViews() {
         btn_newOp = findViewById(R.id.btn_newOp);
         categories_recyclerView = findViewById(R.id.recycler_categories);
+        operation_recyclerView = findViewById(R.id.recycler_operation);
+
+        view_badInternet = findViewById(R.id.view_badInternet);
+        progressBar_loading = findViewById(R.id.progressBar_loading);
     }
 
     private void setupCategoryRecV() {
@@ -78,6 +91,24 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    private void setupOperationRecV() {
+        ContentApiController.getInstance().getOperation(new ListCallback<Operation>() {
+            @Override
+            public void onSuccess(List<Operation> list) {
+                view_badInternet.setVisibility(View.INVISIBLE);
+                progressBar_loading.setVisibility(View.INVISIBLE);
+                operationAdapter = new OperationAdapter(list);
+                operation_recyclerView.setAdapter(operationAdapter);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                view_badInternet.setVisibility(View.VISIBLE);
+                Toast.makeText(DashboardActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void setEveryClick() {
         btn_newOp.setOnClickListener(this);
     }
@@ -85,23 +116,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_newOp:
-                setIntent(NewOperationActivity.class);
-                break;
-            case R.id.adv_id:
-                break;
-            default:
-                setIntent(MainActivity.class);
-// 1           case R.id.btn_newOp:
-//                setIntent(NewOperationActivity.class);
-//                break;
+        if (view.getId() == R.id.btn_newOp) {
+            startActivity(new Intent(this,NewOperationActivity.class));
         }
     }
-
+/*-
     private void setIntent(Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
-
+*/
 
 }

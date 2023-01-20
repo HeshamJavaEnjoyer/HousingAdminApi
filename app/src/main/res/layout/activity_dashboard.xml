@@ -28,6 +28,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp" />
     <!--GuideLines -->
+
+    <!--CategoryRec    -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_categories"
         android:layout_width="0dp"
@@ -39,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@id/g_top"
         tools:itemCount="5"
         tools:listitem="@layout/item_category" />
-
+    <!--NewOpBtn    -->
     <Button
         android:id="@+id/btn_newOp"
         android:layout_width="0dp"
@@ -50,4 +52,45 @@
         app:layout_constraintStart_toStartOf="@id/g_start"
         app:layout_constraintTop_toBottomOf="@id/recycler_categories"
         tools:ignore="TextContrastCheck" />
+    <!--OperationRec    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_operation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintStart_toStartOf="@id/g_start"
+        app:layout_constraintTop_toBottomOf="@id/btn_newOp"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_operation" />
+    <!--View For Bad Internet    -->
+    <View
+        android:id="@+id/view_badInternet"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:visibility="invisible"
+        android:background="@drawable/ic_wifi_off"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_operation"
+        app:layout_constraintEnd_toEndOf="@id/recycler_operation"
+        app:layout_constraintStart_toStartOf="@id/recycler_operation"
+        app:layout_constraintTop_toTopOf="@id/recycler_operation" />
+
+    <!--View For Loading Internet    -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminate="true"
+        app:indicatorColor="@color/sugar_white"
+        app:indicatorSize="40dp"
+        app:trackColor="@color/fade_black"
+        app:trackCornerRadius="8dp"
+        app:trackThickness="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_operation"
+        app:layout_constraintEnd_toEndOf="@id/recycler_operation"
+        app:layout_constraintStart_toStartOf="@id/recycler_operation"
+        app:layout_constraintTop_toTopOf="@id/recycler_operation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

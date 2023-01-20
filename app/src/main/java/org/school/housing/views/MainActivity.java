@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.school.housing.R;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_newUser, btn_newEmp, btn_newAdv;
     private Button btn_dashboard;
     private RecyclerView recyclerView_user,recyclerView_emp,recyclerView_adv;
+    private View view_badInternet;
+    private CircularProgressIndicator progressIndicator;
 
     private UserAdapter userAdapter;
     private EmployeeAdapter employeeAdapter;
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ContentApiController.getInstance().getUsers(new ListCallback<User>() {
             @Override
             public void onSuccess(List<User> list) {
+                view_badInternet.setVisibility(View.INVISIBLE);
+                progressIndicator.setVisibility(View.INVISIBLE);
                 userAdapter = new UserAdapter(list);
                 userAdapter.setRvClickListener(object -> {
                     Intent intent = new Intent(MainActivity.this,EditUserActivity.class);
@@ -84,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String message) {
+                view_badInternet.setVisibility(View.VISIBLE);
+                progressIndicator.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ContentApiController.getInstance().getEmployees(new ListCallback<Employee>() {
             @Override
             public void onSuccess(List<Employee> list) {
+                view_badInternet.setVisibility(View.INVISIBLE);
+                progressIndicator.setVisibility(View.INVISIBLE);
                 employeeAdapter = new EmployeeAdapter(list);
                 employeeAdapter.setRvClickListener(object -> {
                     Intent intent = new Intent(MainActivity.this,EditEmpActivity.class);
@@ -103,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String message) {
+                view_badInternet.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
@@ -111,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ContentApiController.getInstance().getAdvertisements(new ListCallback<Advertisement>() {
             @Override
             public void onSuccess(List<Advertisement> list) {
+                view_badInternet.setVisibility(View.INVISIBLE);
                 advertisementAdapter = new AdvertisementAdapter(list);
                 advertisementAdapter.setRvClickListener(object -> {
                     Intent intent = new Intent(MainActivity.this,EditAdvActivity.class);
@@ -122,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(String message) {
+                view_badInternet.setVisibility(View.VISIBLE);
                 Log.d(TAG, "onFailure() returned: " + message);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
@@ -143,6 +155,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_newUser = findViewById(R.id.btn_newUser);
         btn_newEmp = findViewById(R.id.btn_newEmp);
         btn_newAdv = findViewById(R.id.btn_newAdv);
+
+        view_badInternet = findViewById(R.id.view_badInternet);
+        progressIndicator = findViewById(R.id.progressBar_loading);
     }
 
     private void setClick() {

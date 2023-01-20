@@ -34,9 +34,9 @@
         android:id="@+id/btn_newUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_supervised_user"
         android:text="@string/new_user"
         android:textColor="@color/white"
-        android:drawableEnd="@drawable/ic_supervised_user"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
         app:layout_constraintTop_toTopOf="@id/horizontal_top_start_guide"
@@ -46,8 +46,8 @@
         android:id="@+id/btn_newEmp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/new_employee"
         android:drawableEnd="@drawable/ic_emp_work"
+        android:text="@string/new_employee"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
@@ -58,8 +58,8 @@
         android:id="@+id/btn_newAdv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/new_advertisement"
         android:drawableEnd="@drawable/ic_add_alert"
+        android:text="@string/new_advertisement"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guide"
@@ -68,13 +68,13 @@
 
     <LinearLayout
         android:id="@+id/recycler_collect"
-        app:layout_constraintTop_toBottomOf="@id/btn_newAdv"
-        app:layout_constraintBottom_toTopOf="@id/btn_dashboard"
-        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
-        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
-        android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/btn_dashboard"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toBottomOf="@id/btn_newAdv">
 
         <!--USER RecyclerView    -->
         <androidx.recyclerview.widget.RecyclerView
@@ -139,4 +139,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!--View For Bad Internet    -->
+    <View
+        android:id="@+id/view_badInternet"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:background="@drawable/ic_wifi_off"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_collect"
+        app:layout_constraintEnd_toEndOf="@id/recycler_collect"
+        app:layout_constraintStart_toStartOf="@id/recycler_collect"
+        app:layout_constraintTop_toTopOf="@id/recycler_collect" />
+    <!--View For Loading Internet    -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminate="true"
+        app:indicatorColor="@color/sugar_white"
+        app:indicatorSize="40dp"
+        app:trackColor="@color/fade_black"
+        app:trackCornerRadius="8dp"
+        app:trackThickness="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_collect"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+        app:layout_constraintTop_toTopOf="@id/recycler_collect" />
 </androidx.constraintlayout.widget.ConstraintLayout>
