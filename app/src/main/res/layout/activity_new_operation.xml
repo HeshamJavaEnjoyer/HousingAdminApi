@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/special_gray"
     tools:context=".views.op_forms.NewOperationActivity">
 
 
@@ -43,12 +43,13 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginTop="70dp"
+        android:contentDescription="@string/details"
         android:src="@drawable/house_icon"
         android:translationZ="5dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
         app:layout_constraintTop_toTopOf="@id/g_top"
-        android:contentDescription="@string/details" />
+        tools:ignore="ImageContrastCheck" />
 
     <LinearLayout
         android:id="@+id/userEntryForm"
@@ -110,7 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="DuplicateSpeakableTextCheck,DuplicateSpeakableTextCheck" />
         </com.google.android.material.textfield.TextInputLayout>
         <!--====================================================================================================        -->
         <!-- Section 3    details_edt  -->
@@ -132,7 +134,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLength="55"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="DuplicateSpeakableTextCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--====================================================================================================        -->
@@ -142,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="5dp"
+            style="android.R.layout.simple_list_item_1"
             android:contentDescription="@string/amount"
             android:padding="5dp"
             android:textAlignment="center" />

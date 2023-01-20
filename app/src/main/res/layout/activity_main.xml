@@ -13,21 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="10dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_start_guide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="10dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_end_guide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp" />
+        app:layout_constraintGuide_end="10dp" />
     <!--GuideLines-->
 
     <Button
@@ -63,54 +63,71 @@
         app:layout_constraintTop_toBottomOf="@id/btn_newEmp"
         tools:ignore="TextContrastCheck" />
 
-    <!--USER RecyclerView    -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_user"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
-        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+    <LinearLayout
+        android:id="@+id/recycler_collect"
         app:layout_constraintTop_toBottomOf="@id/btn_newAdv"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_user" />
-    <!--Emp RecyclerView    -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_emp"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+        app:layout_constraintBottom_toTopOf="@id/btn_dashboard"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
-        app:layout_constraintTop_toBottomOf="@id/recycler_user"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_employee" />
-    <!--Adv RecyclerView    -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_adv"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
-        app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
-        app:layout_constraintTop_toBottomOf="@id/recycler_emp"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_advertisement" />
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <!--USER RecyclerView    -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+            app:layout_constraintTop_toBottomOf="@id/btn_newAdv"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_user" />
+        <!--Emp RecyclerView    -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_emp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+            app:layout_constraintTop_toBottomOf="@id/recycler_user"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_employee" />
+        <!--Adv RecyclerView    -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_adv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
+            app:layout_constraintTop_toBottomOf="@id/recycler_emp"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_advertisement" />
+    </LinearLayout>
 
     <!--For The DASHBOARD-->
     <Button
         android:id="@+id/btn_dashboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/dashboard"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/special_green"
+        android:text="@string/dashboard"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guide"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guide"
-        app:layout_constraintTop_toBottomOf="@id/recycler_adv" />
+        app:layout_constraintTop_toBottomOf="@id/recycler_collect"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
     <!--FOR THE SNACK_BAR-->
     <View
         android:id="@+id/snackBar_action"

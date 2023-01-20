@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bac_users"
     android:layout_margin="5dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:padding="5dp"
+    android:background="@drawable/bac_users">
 
     <View
         android:id="@+id/divider"
@@ -18,15 +19,16 @@
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/h_clearWhite"
+        android:textColor="@color/golden_yellow"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
@@ -35,10 +37,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:padding="2dp"
         android:hint="@string/test_hint"
+        android:padding="2dp"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
         app:layout_constraintEnd_toStartOf="@+id/user_image"
@@ -47,7 +49,7 @@
 
     <TextView
         android:id="@+id/user_mobile"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/test_hint"
@@ -55,27 +57,29 @@
         android:textColor="@color/h_clearWhite"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_email" />
 
     <TextView
         android:id="@+id/user_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/golden_yellow"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_mobile" />
 
     <ImageView
         android:id="@+id/user_image"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="15dp"
         android:translationZ="5dp"
         app:layout_constraintBottom_toBottomOf="@id/user_id"
@@ -83,4 +87,12 @@
         app:layout_constraintTop_toTopOf="@id/user_name"
         tools:ignore="ContentDescription" />
 
+    <View
+        android:id="@+id/divider_down"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/golden_yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ public class EditAdvActivity extends AppCompatActivity implements View.OnClickLi
 
     private Spinner dropdown;
     private int id;
-    private final List<String > items = new ArrayList<>();
+    private final List<String> items = new ArrayList<>();
 
     //-Image
     private ActivityResultLauncher<String> permissionResultLauncher;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,9 +26,29 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private Button btn_newOp;
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    private void setActBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //for Enabling the ->getting back to home Act Method
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setActBar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         inti();
     }
 
@@ -81,4 +102,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void setIntent(Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
+
+
 }

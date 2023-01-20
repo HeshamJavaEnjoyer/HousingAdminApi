@@ -10,6 +10,12 @@ import android.os.Handler;
 import org.school.housing.Prefs.AppSharedPreferences;
 import org.school.housing.R;
 
+/**
+ * @author  Hesham AbuShaban
+ * @version 1.7
+ * @since   2023-01-20
+ */
+
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 

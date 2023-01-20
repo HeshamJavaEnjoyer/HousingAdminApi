@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/special_gray"
     tools:context=".views.DashboardActivity">
     <!--GuideLines-->
     <androidx.constraintlayout.widget.Guideline
@@ -37,14 +38,16 @@
         app:layout_constraintStart_toStartOf="@id/g_start"
         app:layout_constraintTop_toTopOf="@id/g_top"
         tools:itemCount="5"
-        tools:listitem="@layout/item_user" />
+        tools:listitem="@layout/item_category" />
 
     <Button
         android:id="@+id/btn_newOp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/new_operation"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
-        app:layout_constraintTop_toBottomOf="@id/recycler_categories" />
+        app:layout_constraintTop_toBottomOf="@id/recycler_categories"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

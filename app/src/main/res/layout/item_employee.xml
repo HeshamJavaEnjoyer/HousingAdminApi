@@ -12,29 +12,29 @@
         android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:visibility="gone"
         android:background="@color/golden_yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/emp_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+
         android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/s_oldIce"
+        android:textColor="@color/golden_yellow"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/emp_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <TextView
         android:id="@+id/emp_mobile"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/test_hint"
@@ -42,31 +42,42 @@
         android:textColor="@color/h_clearWhite"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@+id/emp_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emp_name" />
 
     <TextView
         android:id="@+id/emp_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:hint="@string/test_hint"
         android:textAlignment="center"
-        android:textColor="@color/s_oldIce"
+        android:textColor="@color/golden_yellow"
         android:textColorHint="@color/h_clearWhite"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/emp_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emp_mobile" />
 
     <ImageView
         android:id="@+id/emp_image"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="15dp"
         android:translationZ="5dp"
         app:layout_constraintBottom_toBottomOf="@id/emp_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/emp_name"
         tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/divider_down"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/golden_yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

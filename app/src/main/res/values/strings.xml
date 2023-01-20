@@ -45,6 +45,8 @@
     <string name="operation_info">Operation Info</string>
     <string name="amount">The amount</string>
     <string name="details">Details</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
 
 
     <string-array name="actor_type">
