@@ -11,12 +11,14 @@
     <Spinner
         android:id="@+id/dropdown_menu_item_id"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
+        android:layout_height="50dp"
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@id/btn_deleteUser"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
-        app:layout_constraintTop_toBottomOf="@id/g_top" />
+        app:layout_constraintTop_toBottomOf="@id/g_top"
+        tools:ignore="SpeakableTextPresentCheck" />
     <!--Delete Btn    -->
     <Button
         android:id="@+id/btn_deleteUser"
@@ -24,6 +26,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/shiny_red"
         android:text="@string/delete"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/userEntryForm"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
         app:layout_constraintTop_toBottomOf="@id/dropdown_menu_item_id" />

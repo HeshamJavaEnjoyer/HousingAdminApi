@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     android:background="@color/dark_pool"
     tools:context=".views.op_forms.EditOperationActivity">
+    <!--For Update Purposes-->
+    <Spinner
+        android:id="@+id/spinner_opId"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="@id/g_start"
+        app:layout_constraintEnd_toEndOf="@id/g_end"
+        app:layout_constraintTop_toTopOf="@id/g_top"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/btn_deleteOperation"
@@ -16,7 +29,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="@id/g_end"
         app:layout_constraintStart_toStartOf="@id/g_start"
-        app:layout_constraintTop_toBottomOf="@id/g_top" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_opId" />
 
     <!--ALL THE Guideline-->
     <androidx.constraintlayout.widget.Guideline
@@ -100,7 +113,7 @@
             android:layout_margin="5dp"
             android:entries="@array/category_id"
             android:padding="5dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
@@ -160,7 +173,7 @@
             style="android.R.layout.simple_list_item_1"
             android:contentDescription="@string/amount"
             android:padding="5dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
@@ -173,7 +186,7 @@
             android:layout_margin="5dp"
             android:padding="5dp"
             android:entries="@array/actor_type"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
         <!--====================================================================================================        -->

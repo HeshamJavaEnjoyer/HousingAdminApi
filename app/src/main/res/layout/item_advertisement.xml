@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/empty_bac_1"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <View
         android:id="@+id/divider"
@@ -21,13 +21,16 @@
         android:id="@+id/adv_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_emp_form"
         android:hint="@string/test_hint"
         android:textAlignment="center"
         android:textColor="@color/sugar_white"
         android:textColorHint="@color/sugar_white"
-        android:background="@drawable/shape_emp_form"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/adv_title"
         app:layout_constraintEnd_toStartOf="@+id/adv_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -36,30 +39,30 @@
         android:id="@+id/adv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:hint="@string/test_hint"
         android:textAlignment="center"
         android:textColor="@color/golden_yellow"
         android:textColorHint="@color/sugar_white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/adv_image"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adv_info"
+        app:layout_constraintEnd_toEndOf="@+id/adv_id"
+        app:layout_constraintStart_toStartOf="@id/adv_id"
         app:layout_constraintTop_toBottomOf="@id/adv_id" />
 
     <TextView
         android:id="@+id/adv_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:hint="@string/test_hint"
         android:textAlignment="center"
         android:textColor="@color/sugar_white"
         android:textColorHint="@color/sugar_white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/adv_image"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider_down"
+        app:layout_constraintEnd_toEndOf="@+id/adv_title"
+        app:layout_constraintStart_toStartOf="@id/adv_title"
         app:layout_constraintTop_toBottomOf="@id/adv_title" />
 
     <ImageView
@@ -67,12 +70,12 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="25dp"
-        android:translationZ="5dp"
         android:padding="5dp"
+        android:translationZ="5dp"
         app:layout_constraintBottom_toBottomOf="@id/adv_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/adv_id"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <View
         android:id="@+id/divider_down"

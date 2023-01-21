@@ -60,7 +60,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_email" />
+        app:layout_constraintTop_toBottomOf="@id/user_email"
+        app:drawableEndCompat="@drawable/ic_phone_msg" />
 
     <TextView
         android:id="@+id/user_id"

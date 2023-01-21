@@ -57,7 +57,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private byte[] imagePart = null;
 
     private int id;
-    private List<User> items = new ArrayList<>();
+    private final List<String> userIdsList = new ArrayList<>();
     private User mIntentUser;
 
     @Override
@@ -127,16 +127,20 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         ContentApiController.getInstance().getUsers(new ListCallback<User>() {
             @Override
             public void onSuccess(List<User> list) {
-                items = list;
+                for (int i = 0; i < list.size(); i++) {
+                    userIdsList.add(String.valueOf(list.get(i).id));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditUserActivity.this, android.R.layout.simple_spinner_dropdown_item, userIdsList);
+                dropdown.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(String message) {
                 Log.d(TAG, "onFailure() returned: " + message);
+                Snackbar.make(findViewById(R.id.snackBar_action),message,Snackbar.LENGTH_LONG).setAction("Refresh Spinner",view ->setupSpinnerAdapter()).show();
             }
         });
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
+
     }
 
     private void setEveryOnClick() {

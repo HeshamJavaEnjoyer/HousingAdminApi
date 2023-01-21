@@ -4,14 +4,18 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/far_sky</item>
         <item name="colorPrimaryVariant">@color/dark_pool</item>
-        <item name="colorOnPrimary">@color/sugar_white</item>
+        <item name="colorOnPrimary">@color/golden_yellow</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/old_ice</item>
         <item name="colorSecondaryVariant">@color/faze_sea</item>
-        <item name="colorOnSecondary">@color/fade_black</item>
+        <item name="colorOnSecondary">@color/footer_flame</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/special_gray</item>
         <!-- Customize your theme here. -->
+
+        <item name="fontFamily">@font/sans_ara_semi_bold</item>
+
+
     </style>
 
     <!--For the progressBar-->
@@ -22,5 +26,8 @@
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
+
+        <item name="fontFamily">@font/sans_ara_semi_bold</item>
+
     </style>
 </resources>

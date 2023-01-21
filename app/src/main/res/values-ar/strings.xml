@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name"> الإسكان </string>
 
-    <string name="welcome_sir"> مرحبًا بك سيدي ✨ </string>
+    <string name="welcome_sir"> مرحبًا بك ✨ </string>
     <string name="welcome_back"> مرحبًا بك مرة أخرى … </string>
     <string name="enter_email_amp_password">أدخل البريد الإلكتروني وكلمة المرور</string>
     <string name="email"> البريد الإلكتروني </string>
@@ -56,7 +56,7 @@
     </string-array>
 
     <string-array name="category_id">
-        <item> ResidentService: 1 </item>
+        <item> خدمات السكان: 1 </item>
         <item> الراتب: 2 </item>
         <item> المشتريات: 3 </item>
         <item> الصيانة: 4 </item>

@@ -49,7 +49,7 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
 
     private Spinner dropdown;
     private int id;
-    private List<Employee> items = new ArrayList<>();
+    private final List<String> empIdsList = new ArrayList<>();
 
 
     //name mobile nationalNum -Image
@@ -117,16 +117,20 @@ public class EditEmpActivity extends AppCompatActivity implements View.OnClickLi
         ContentApiController.getInstance().getEmployees(new ListCallback<Employee>() {
             @Override
             public void onSuccess(List<Employee> list) {
-                items = list;
+                for (int i = 0; i < list.size(); i++) {
+                    empIdsList.add(String.valueOf(list.get(i).id));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditEmpActivity.this, android.R.layout.simple_spinner_dropdown_item, empIdsList);
+                dropdown.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(String message) {
+                Snackbar.make(findViewById(R.id.snackBar_action),message,Snackbar.LENGTH_LONG).setAction("Refresh Spinner",view ->setupSpinnerAdapter()).show();
                 Log.d(TAG, "onFailure() returned: " + message);
             }
         });
-        ArrayAdapter<Employee> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
+
     }
 
     private void setClicks() {

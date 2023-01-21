@@ -90,7 +90,7 @@
             android:layout_margin="5dp"
             android:entries="@array/category_id"
             android:padding="5dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
@@ -150,7 +150,7 @@
             style="android.R.layout.simple_list_item_1"
             android:contentDescription="@string/amount"
             android:padding="5dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
 
@@ -163,7 +163,7 @@
             android:layout_margin="5dp"
             android:padding="5dp"
             android:entries="@array/actor_type"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@android:drawable/editbox_dropdown_dark_frame"
             android:spinnerMode="dropdown"
             android:textAlignment="center" />
         <!--====================================================================================================        -->

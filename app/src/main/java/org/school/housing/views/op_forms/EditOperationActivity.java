@@ -40,17 +40,21 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     private Button btn_submit, btn_deleteOp;
     private TextInputEditText amount_edt, details_edt;
 
-    private Spinner spinner_categoryId, spinner_actorId, spinner_actorType;
+    private Spinner spinner_categoryId, spinner_actorId, spinner_actorType, spinner_opId;
     //----------------containers
     private String cateId, amount, details, actor_id, actor_type, date;
 
     //-----spinners
+    private final List<String> opIds = new ArrayList<>();
+
     private final List<String> empIds = new ArrayList<>();
     private final List<String> userIds = new ArrayList<>();
 
     //For Update Purpose
     private int id;
     private Operation mIntentOperation;
+
+    private boolean sp_ac_enabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +66,16 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     private void setIntentOperation() {
         mIntentOperation = (Operation) getIntent().getSerializableExtra(Keys.OperaKey.name());
         if (mIntentOperation != null) {
+            spinner_categoryId.setEnabled(false);
+            //cateId, amount, details, actor_id, actor_type, date;
             id = mIntentOperation.id;
             details_edt.setText(mIntentOperation.details);
             amount_edt.setText(mIntentOperation.amount);
+            cateId = mIntentOperation.categoryId;
+            actor_id = String.valueOf(mIntentOperation.actorId);
 
-            spinner_categoryId.setEnabled(false);
             spinner_actorId.setVisibility(View.INVISIBLE);
+            spinner_actorType.setVisibility(View.INVISIBLE);
         } else {
             controlSpinnerChoose();
             Log.d(TAG, "setIntentEmp() returned: object is " + false);
@@ -102,15 +110,13 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
 
         setIntentOperation();
 
-        if (mIntentOperation == null) {
-            controlSpinnerChoose();
-        } else {
-            spinner_actorId.setEnabled(false);
-        }
-
     }
 
     private void findViews() {
+        //update purposes
+        spinner_opId = findViewById(R.id.spinner_opId);
+
+
         spinner_categoryId = findViewById(R.id.spinner_category_id);
         amount_edt = findViewById(R.id.amount_edt);
         details_edt = findViewById(R.id.details_edt);
@@ -141,9 +147,13 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                         setSpinner_actorIdEmp();
                         spinner_actorId.setEnabled(true);
                         break;
-                    case 3:
-                    case 4:
+                    default:
+                        sp_ac_enabled = false;
                         spinner_actorId.setEnabled(false);
+                        spinner_actorType.setEnabled(false);
+
+                        spinner_actorId.setVisibility(View.INVISIBLE);
+                        spinner_actorType.setVisibility(View.INVISIBLE);
                         break;
                 }
             }
@@ -168,18 +178,19 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private int setIdValue() {
+    private int setOperationIdValue() {
         if (mIntentOperation != null) {
             id = mIntentOperation.id;
         } else {
-            controlSpinnerChoose();
+            setupSpinnerOperationAdapter();
+            opSelectedId();
         }
         return id;
     }
 
     private boolean saveUserEntryFromUi() {
 
-        id = setIdValue();
+        id = setOperationIdValue();
 
         cateId = setCateIdValue();
 
@@ -201,6 +212,19 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
 
         actor_id = setActorId();
 
+        if (sp_ac_enabled) {
+            spinner_actorId.setVisibility(View.INVISIBLE);
+            spinner_actorType.setVisibility(View.INVISIBLE);
+        }
+
+        setActorType();
+
+        date = todayDateFormatToSt_YMD();
+
+        return true;
+    }
+
+    private void setActorType() {
         final String user_actor_type = String.valueOf(spinner_actorType.getSelectedItemId());
         switch (user_actor_type) {
             case "0":
@@ -210,29 +234,22 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 actor_type = String.valueOf(ActorType.Resident);
                 break;
         }
-
-//                = ActorType.Employee.name();
-        // }
-
-        //and finally today date
-        date = todayDateFormatToSt_YMD();
-//                = todayDateFormatToSt_YMD();
-        return true;
     }
 
     private String setActorId() {
         if (mIntentOperation != null) {
             actor_id = String.valueOf(mIntentOperation.actorId);
-            return actor_id;
         } else {
             final String user_actor_id = String.valueOf(spinner_actorId.getSelectedItem());
             if (!user_actor_id.isEmpty()) {
                 actor_id = user_actor_id;
-                Log.d(TAG, "user_actor_id() returned: " + user_actor_id);
-                return actor_id;
+                Log.d(TAG, "user_actor_id() GotSelected: " + user_actor_id);
+            } else {
+                Toast.makeText(this, "Please pick a valid id", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "setActorId: \"Pick an valid id\"");
             }
-            return "null";
         }
+        return actor_id;
     }
 
     private String setCateIdValue() {
@@ -284,6 +301,7 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 }
                 ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, empIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
+                sp_ac_enabled = true;
             }
 
             @Override
@@ -304,6 +322,7 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 }
                 ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, userIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
+                sp_ac_enabled = true;
             }
 
             @Override
@@ -316,10 +335,6 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     }
 
     //Converters
-    /*
-    date Method Gives TodayDate Always
-    @todayDateFormatToSt_YMD();
-    */
     private String todayDateFormatToSt_YMD() {
         Date date = new Date();
         @SuppressLint("SimpleDateFormat")
@@ -328,15 +343,29 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    //=====================================================
-//4    public void setSpinText(Spinner spin, String text) {
-//        for (int i = 0; i < spin.getAdapter().getCount(); i++) {
-//            if (spin.getAdapter().getItem(i).toString().contains(text)) {
-//                spin.setSelection(i);
-//            }
-//        }
-//
-//    }
+    private void setupSpinnerOperationAdapter() {
+        ContentApiController.getInstance().getOperation(new ListCallback<Operation>() {
+            @Override
+            public void onSuccess(List<Operation> list) {
+                for (int i = 0; i < list.size(); i++) {
+                    opIds.add(String.valueOf(list.get(i).id));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, opIds);
+                spinner_opId.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Log.d(TAG, "onFailure() returned: " + message);
+                Snackbar.make(findViewById(R.id.snackBar_action), message, Snackbar.LENGTH_LONG).setAction("Refresh Spinner", view -> setupSpinnerOperationAdapter()).show();
+            }
+        });
+
+    }
+
+    private void opSelectedId() {
+        id = Integer.parseInt(String.valueOf(spinner_opId.getSelectedItem()));
+    }
 
     @Override
     public void onConfirmClicked() {
@@ -350,12 +379,13 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 public void onSuccess(String message) {
                     btn_submit.setEnabled(false);
                     btn_deleteOp.setBackgroundColor(getResources().getColor(R.color.special_green));
+                    btn_deleteOp.setEnabled(false);
                     Snackbar.make(findViewById(R.id.snackBar_action), "Deleted Successfully=> " + message, Snackbar.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onFailure(String massage) {
-                    Snackbar.make(findViewById(R.id.snackBar_action), massage, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.snackBar_action), massage, Snackbar.LENGTH_LONG).setAction("TryAgain", view-> performDeleteOp()).show();
                 }
             });
         } else {

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Housing</string>
-    <string name="welcome_sir">Welcome to you sir ✨</string>
+    <string name="welcome_sir">Welcome ✨</string>
     <string name="welcome_back">Welcome Back…</string>
     <string name="enter_email_amp_password"><![CDATA[Enter email & password]]></string>
     <string name="email">Email</string>

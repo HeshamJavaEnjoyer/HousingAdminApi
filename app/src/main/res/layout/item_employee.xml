@@ -44,6 +44,7 @@
         android:textColor="@color/sugar_white"
         android:textColorHint="@color/sugar_white"
         android:textSize="17sp"
+        app:drawableEndCompat="@drawable/ic_phone_msg"
         app:layout_constraintEnd_toStartOf="@+id/emp_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emp_name" />
