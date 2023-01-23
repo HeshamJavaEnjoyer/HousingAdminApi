@@ -72,17 +72,22 @@ public class OperationApiController extends ApiBaseController {
         Log.d(TAG, "updateOperation() called with: op_id = [" + op_id + "], category_id = [" + category_id + "], amount = [" + amount + "], details = [" + details + "], actor_id = [" + actor_id + "], actor_type = [" + actor_type + "], date = [" + date + "]");
         HashMap<String, RequestBody> map = new HashMap<>();
 
-        String[] values = {category_id, amount, details, actor_id, actor_type, date};
-        String[] keys = {"category_id", "amount", "details", "actor_id", "actor_type", "date"};
+        String[] values = {amount, details, date};
+        String[] keys = {"amount", "details", "date"};
         for (int i = 0; i <= values.length - 1; i++) {
             map.put(keys[i], RequestBody.create(MediaType.parse("text/plain"), values[i]));
         }
+        if (actor_id != null && actor_type != null) {
+            map.put("actor_id", RequestBody.create(MediaType.parse("text/plain"), actor_id));
+            map.put("actor_type", RequestBody.create(MediaType.parse("text/plain"), actor_type));
+        }
 
 
-        Call<BaseResponse<Operation>> call = apiController.getRetrofitRequests().update_operation(op_id, map);
+        Call<BaseResponse<Operation>> call = apiController.getRetrofitRequests().update_operation(op_id,category_id, map);
         call.enqueue(new Callback<BaseResponse<Operation>>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse<Operation>> call, @NonNull Response<BaseResponse<Operation>> response) {
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 if (response.isSuccessful() && response.body() != null) {
                     processCallback.onSuccess("OpSuccessfullyProcessed: " + response.body().message);
                 } else {

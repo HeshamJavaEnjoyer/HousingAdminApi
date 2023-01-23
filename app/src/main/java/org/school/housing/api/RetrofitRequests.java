@@ -174,7 +174,7 @@ public interface RetrofitRequests {
 
     @PUT("operations/{id}")
     @Multipart
-    Call<BaseResponse<Operation>> update_operation(@Path("id") int id ,@PartMap Map<String, RequestBody> parameters);
+    Call<BaseResponse<Operation>> update_operation(@Path("id") int id ,@Part("category_id") String category_id,@PartMap Map<String, RequestBody> parameters);
 
     @DELETE("operations/{id}")
     Call<BaseResponse<Operation>> delete_operation(@Path("id") int id);

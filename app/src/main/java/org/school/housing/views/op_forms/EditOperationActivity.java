@@ -20,6 +20,7 @@ import org.school.housing.R;
 import org.school.housing.api.controllers.ContentApiController;
 import org.school.housing.api.controllers.OperationApiController;
 import org.school.housing.enums.ActorType;
+import org.school.housing.enums.CategoryId;
 import org.school.housing.enums.Keys;
 import org.school.housing.fragments.dialogs.DeleteConfirmationDialog;
 import org.school.housing.interfaces.ListCallback;
@@ -54,28 +55,27 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     private int id;
     private Operation mIntentOperation;
 
-    private boolean sp_ac_enabled = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_operation);
         setActBar();
+        setupSpinnerOperationAdapter();
+
     }
 
     private void setIntentOperation() {
         mIntentOperation = (Operation) getIntent().getSerializableExtra(Keys.OperaKey.name());
         if (mIntentOperation != null) {
-            spinner_categoryId.setEnabled(false);
             //cateId, amount, details, actor_id, actor_type, date;
             id = mIntentOperation.id;
             details_edt.setText(mIntentOperation.details);
             amount_edt.setText(mIntentOperation.amount);
-            cateId = mIntentOperation.categoryId;
+//            cateId = mIntentOperation.categoryId;
             actor_id = String.valueOf(mIntentOperation.actorId);
 
-            spinner_actorId.setVisibility(View.INVISIBLE);
-            spinner_actorType.setVisibility(View.INVISIBLE);
+//            spinner_actorId.setVisibility(View.INVISIBLE);
+//            spinner_actorType.setVisibility(View.INVISIBLE);
         } else {
             controlSpinnerChoose();
             Log.d(TAG, "setIntentEmp() returned: object is " + false);
@@ -109,6 +109,7 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
         setEveryClicks();
 
         setIntentOperation();
+        setOperationIdValue();
 
     }
 
@@ -141,19 +142,27 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                         Toast.makeText(EditOperationActivity.this, "Resident SoBe It", Toast.LENGTH_SHORT).show();
                         setSpinner_actorIdResident();
                         spinner_actorId.setEnabled(true);
+
+                        spinner_actorType.setEnabled(true);
+                        spinner_actorId.setVisibility(View.VISIBLE);
+                        spinner_actorType.setVisibility(View.VISIBLE);
+
                         break;
                     case 1:
                         Toast.makeText(EditOperationActivity.this, "Employee SoBe It", Toast.LENGTH_SHORT).show();
                         setSpinner_actorIdEmp();
                         spinner_actorId.setEnabled(true);
+                        spinner_actorType.setEnabled(true);
+                        spinner_actorId.setVisibility(View.VISIBLE);
+                        spinner_actorType.setVisibility(View.VISIBLE);
+
                         break;
                     default:
-                        sp_ac_enabled = false;
                         spinner_actorId.setEnabled(false);
                         spinner_actorType.setEnabled(false);
 
-                        spinner_actorId.setVisibility(View.INVISIBLE);
-                        spinner_actorType.setVisibility(View.INVISIBLE);
+                        spinner_actorId.setVisibility(View.GONE);
+                        spinner_actorType.setVisibility(View.GONE);
                         break;
                 }
             }
@@ -178,19 +187,18 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private int setOperationIdValue() {
+    private void setOperationIdValue() {
         if (mIntentOperation != null) {
             id = mIntentOperation.id;
         } else {
             setupSpinnerOperationAdapter();
-            opSelectedId();
+//            opSelectedId();
         }
-        return id;
     }
 
     private boolean saveUserEntryFromUi() {
 
-        id = setOperationIdValue();
+        id = Integer.parseInt(String.valueOf(spinner_opId.getSelectedItem()));
 
         cateId = setCateIdValue();
 
@@ -212,15 +220,11 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
 
         actor_id = setActorId();
 
-        if (sp_ac_enabled) {
-            spinner_actorId.setVisibility(View.INVISIBLE);
-            spinner_actorType.setVisibility(View.INVISIBLE);
-        }
 
         setActorType();
 
         date = todayDateFormatToSt_YMD();
-
+        Log.d(TAG, "saveUserEntryFromUi() called with: op_id = [" + id + "], category_id = [" + cateId + "], amount = [" + amount + "], details = [" + details + "], actor_id = [" + actor_id + "], actor_type = [" + actor_type + "], date = [" + date + "]");
         return true;
     }
 
@@ -253,9 +257,30 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
     }
 
     private String setCateIdValue() {
-        Log.d(TAG, "setCateIdValue() returned: " + mIntentOperation.categoryId);
-        cateId = mIntentOperation.categoryId;
-        return cateId;
+//        if (mIntentOperation!=null){
+//            cateId = mIntentOperation.categoryId;
+//        }else {
+            String user_cateId = String.valueOf(spinner_categoryId.getSelectedItemId());
+            switch (user_cateId) {
+                case "0":
+                    user_cateId = String.valueOf(CategoryId.ResidentService.id);
+//                setSpinner_actorIdResident();
+                    break;
+                case "1":
+                    user_cateId = String.valueOf(CategoryId.Salary.id);
+//                setSpinner_actorIdEmp();
+                    break;
+                case "2":
+                    user_cateId = String.valueOf(CategoryId.Purchases.id);
+                    break;
+                case "3":
+                    user_cateId = String.valueOf(CategoryId.Maintenance.id);
+                    break;
+                default:
+                    user_cateId = "1";
+            }
+//        }
+        return user_cateId;
     }
 
     private boolean checkData() {
@@ -301,7 +326,6 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 }
                 ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, empIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
-                sp_ac_enabled = true;
             }
 
             @Override
@@ -322,7 +346,6 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
                 }
                 ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(EditOperationActivity.this, android.R.layout.simple_list_item_1, userIds);
                 spinner_actorId.setAdapter(stringArrayAdapter);
-                sp_ac_enabled = true;
             }
 
             @Override
@@ -363,9 +386,9 @@ public class EditOperationActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void opSelectedId() {
-        id = Integer.parseInt(String.valueOf(spinner_opId.getSelectedItem()));
-    }
+//    private void opSelectedId() {
+//        id = Integer.parseInt(String.valueOf(spinner_opId.getSelectedItem()));
+//    }
 
     @Override
     public void onConfirmClicked() {
